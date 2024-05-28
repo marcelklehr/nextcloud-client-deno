@@ -19,14 +19,14 @@ import {
     AutocompleteResultStatusOneOfFromJSONTyped,
     AutocompleteResultStatusOneOfToJSON,
 } from './AutocompleteResultStatusOneOf.ts';
-#import type { string } from './string.ts';
-#import {
+/*import type { string } from './string.ts';*/
+/*import {
 #    instanceOfstring,
 #    stringFromJSON,
 #    stringFromJSONTyped,
 #    stringToJSON,
 #} from './string.ts';
-
+*/
 /**
  * @type AutocompleteResultStatus
  * 
