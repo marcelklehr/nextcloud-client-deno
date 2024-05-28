@@ -16,11 +16,11 @@
 import * as runtime from '../runtime.ts';
 import type {
   Status,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     StatusFromJSON,
     StatusToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 /**
  * 

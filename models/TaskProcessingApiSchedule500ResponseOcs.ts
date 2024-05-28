@@ -18,13 +18,13 @@ import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 import type { TaskProcessingApiSchedule500ResponseOcsData } from './TaskProcessingApiSchedule500ResponseOcsData.ts';
 import {
     TaskProcessingApiSchedule500ResponseOcsDataFromJSON,
     TaskProcessingApiSchedule500ResponseOcsDataFromJSONTyped,
     TaskProcessingApiSchedule500ResponseOcsDataToJSON,
-} from './TaskProcessingApiSchedule500ResponseOcsData';
+} from './TaskProcessingApiSchedule500ResponseOcsData.ts';
 
 /**
  * 

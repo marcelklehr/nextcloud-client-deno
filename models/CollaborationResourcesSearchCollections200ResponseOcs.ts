@@ -18,13 +18,13 @@ import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 import type { Collection } from './Collection.ts';
 import {
     CollectionFromJSON,
     CollectionFromJSONTyped,
     CollectionToJSON,
-} from './Collection';
+} from './Collection.ts';
 
 /**
  * 

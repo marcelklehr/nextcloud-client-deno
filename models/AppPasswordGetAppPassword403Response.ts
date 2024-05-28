@@ -18,7 +18,7 @@ import {
     AppPasswordGetAppPassword403ResponseOcsFromJSON,
     AppPasswordGetAppPassword403ResponseOcsFromJSONTyped,
     AppPasswordGetAppPassword403ResponseOcsToJSON,
-} from './AppPasswordGetAppPassword403ResponseOcs';
+} from './AppPasswordGetAppPassword403ResponseOcs.ts';
 
 /**
  * 

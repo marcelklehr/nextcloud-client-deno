@@ -18,13 +18,13 @@ import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 import type { UnifiedSearchResult } from './UnifiedSearchResult.ts';
 import {
     UnifiedSearchResultFromJSON,
     UnifiedSearchResultFromJSONTyped,
     UnifiedSearchResultToJSON,
-} from './UnifiedSearchResult';
+} from './UnifiedSearchResult.ts';
 
 /**
  * 

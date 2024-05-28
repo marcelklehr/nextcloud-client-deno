@@ -18,7 +18,7 @@ import {
     ReferenceApiTouchProvider200ResponseOcsFromJSON,
     ReferenceApiTouchProvider200ResponseOcsFromJSONTyped,
     ReferenceApiTouchProvider200ResponseOcsToJSON,
-} from './ReferenceApiTouchProvider200ResponseOcs';
+} from './ReferenceApiTouchProvider200ResponseOcs.ts';
 
 /**
  * 

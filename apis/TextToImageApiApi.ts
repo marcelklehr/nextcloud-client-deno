@@ -19,7 +19,7 @@ import type {
   TextToImageApiIsAvailable200Response,
   TextToImageApiListTasksByApp200Response,
   TextToImageApiSchedule200Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     TaskProcessingApiSchedule500ResponseFromJSON,
     TaskProcessingApiSchedule500ResponseToJSON,
@@ -29,7 +29,7 @@ import {
     TextToImageApiListTasksByApp200ResponseToJSON,
     TextToImageApiSchedule200ResponseFromJSON,
     TextToImageApiSchedule200ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface TextToImageApiDeleteTaskRequest {
     id: number;

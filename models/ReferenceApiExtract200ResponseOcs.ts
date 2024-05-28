@@ -18,13 +18,13 @@ import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 import type { ReferenceApiExtract200ResponseOcsData } from './ReferenceApiExtract200ResponseOcsData.ts';
 import {
     ReferenceApiExtract200ResponseOcsDataFromJSON,
     ReferenceApiExtract200ResponseOcsDataFromJSONTyped,
     ReferenceApiExtract200ResponseOcsDataToJSON,
-} from './ReferenceApiExtract200ResponseOcsData';
+} from './ReferenceApiExtract200ResponseOcsData.ts';
 
 /**
  * 

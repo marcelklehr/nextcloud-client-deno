@@ -18,7 +18,7 @@ import {
     TextProcessingApiSchedule200ResponseOcsFromJSON,
     TextProcessingApiSchedule200ResponseOcsFromJSONTyped,
     TextProcessingApiSchedule200ResponseOcsToJSON,
-} from './TextProcessingApiSchedule200ResponseOcs';
+} from './TextProcessingApiSchedule200ResponseOcs.ts';
 
 /**
  * 

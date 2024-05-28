@@ -18,7 +18,7 @@ import {
     TextToImageApiListTasksByApp200ResponseOcsFromJSON,
     TextToImageApiListTasksByApp200ResponseOcsFromJSONTyped,
     TextToImageApiListTasksByApp200ResponseOcsToJSON,
-} from './TextToImageApiListTasksByApp200ResponseOcs';
+} from './TextToImageApiListTasksByApp200ResponseOcs.ts';
 
 /**
  * 

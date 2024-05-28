@@ -16,11 +16,11 @@
 import * as runtime from '../runtime.ts';
 import type {
   OcsGetCapabilities200Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     OcsGetCapabilities200ResponseFromJSON,
     OcsGetCapabilities200ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface OcsGetCapabilitiesRequest {
     oCSAPIRequest: boolean;

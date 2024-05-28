@@ -18,7 +18,7 @@ import {
     TeamsApiListTeams200ResponseOcsFromJSON,
     TeamsApiListTeams200ResponseOcsFromJSONTyped,
     TeamsApiListTeams200ResponseOcsToJSON,
-} from './TeamsApiListTeams200ResponseOcs';
+} from './TeamsApiListTeams200ResponseOcs.ts';
 
 /**
  * 

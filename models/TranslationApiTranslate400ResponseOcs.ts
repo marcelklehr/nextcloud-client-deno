@@ -18,13 +18,13 @@ import {
     TranslationApiTranslate400ResponseOcsDataFromJSON,
     TranslationApiTranslate400ResponseOcsDataFromJSONTyped,
     TranslationApiTranslate400ResponseOcsDataToJSON,
-} from './TranslationApiTranslate400ResponseOcsData';
+} from './TranslationApiTranslate400ResponseOcsData.ts';
 import type { OCSMeta } from './OCSMeta.ts';
 import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 
 /**
  * 

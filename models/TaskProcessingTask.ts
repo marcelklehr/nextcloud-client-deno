@@ -18,7 +18,7 @@ import {
     TaskProcessingIOValueFromJSON,
     TaskProcessingIOValueFromJSONTyped,
     TaskProcessingIOValueToJSON,
-} from './TaskProcessingIOValue';
+} from './TaskProcessingIOValue.ts';
 
 /**
  * 

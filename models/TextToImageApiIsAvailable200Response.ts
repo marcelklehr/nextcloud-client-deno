@@ -18,7 +18,7 @@ import {
     TextToImageApiIsAvailable200ResponseOcsFromJSON,
     TextToImageApiIsAvailable200ResponseOcsFromJSONTyped,
     TextToImageApiIsAvailable200ResponseOcsToJSON,
-} from './TextToImageApiIsAvailable200ResponseOcs';
+} from './TextToImageApiIsAvailable200ResponseOcs.ts';
 
 /**
  * 

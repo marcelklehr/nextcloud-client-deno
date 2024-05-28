@@ -18,13 +18,13 @@ import {
     HoverCardGetUser200ResponseOcsDataFromJSON,
     HoverCardGetUser200ResponseOcsDataFromJSONTyped,
     HoverCardGetUser200ResponseOcsDataToJSON,
-} from './HoverCardGetUser200ResponseOcsData';
+} from './HoverCardGetUser200ResponseOcsData.ts';
 import type { OCSMeta } from './OCSMeta.ts';
 import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 
 /**
  * 

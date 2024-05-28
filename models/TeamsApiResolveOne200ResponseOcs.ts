@@ -18,13 +18,13 @@ import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 import type { TeamsApiResolveOne200ResponseOcsData } from './TeamsApiResolveOne200ResponseOcsData.ts';
 import {
     TeamsApiResolveOne200ResponseOcsDataFromJSON,
     TeamsApiResolveOne200ResponseOcsDataFromJSONTyped,
     TeamsApiResolveOne200ResponseOcsDataToJSON,
-} from './TeamsApiResolveOne200ResponseOcsData';
+} from './TeamsApiResolveOne200ResponseOcsData.ts';
 
 /**
  * 

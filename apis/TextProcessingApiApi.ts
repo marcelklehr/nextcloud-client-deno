@@ -19,7 +19,7 @@ import type {
   TextProcessingApiListTasksByApp200Response,
   TextProcessingApiSchedule200Response,
   TextProcessingApiTaskTypes200Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     TaskProcessingApiSchedule500ResponseFromJSON,
     TaskProcessingApiSchedule500ResponseToJSON,
@@ -29,7 +29,7 @@ import {
     TextProcessingApiSchedule200ResponseToJSON,
     TextProcessingApiTaskTypes200ResponseFromJSON,
     TextProcessingApiTaskTypes200ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface TextProcessingApiDeleteTaskRequest {
     id: number;

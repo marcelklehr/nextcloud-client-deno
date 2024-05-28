@@ -18,13 +18,13 @@ import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 import type { NavigationEntry } from './NavigationEntry.ts';
 import {
     NavigationEntryFromJSON,
     NavigationEntryFromJSONTyped,
     NavigationEntryToJSON,
-} from './NavigationEntry';
+} from './NavigationEntry.ts';
 
 /**
  * 

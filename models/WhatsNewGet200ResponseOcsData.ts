@@ -18,7 +18,7 @@ import {
     WhatsNewGet200ResponseOcsDataWhatsNewFromJSON,
     WhatsNewGet200ResponseOcsDataWhatsNewFromJSONTyped,
     WhatsNewGet200ResponseOcsDataWhatsNewToJSON,
-} from './WhatsNewGet200ResponseOcsDataWhatsNew';
+} from './WhatsNewGet200ResponseOcsDataWhatsNew.ts';
 
 /**
  * 

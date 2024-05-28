@@ -18,7 +18,7 @@ import {
     TranslationApiLanguages200ResponseOcsDataLanguagesInnerFromJSON,
     TranslationApiLanguages200ResponseOcsDataLanguagesInnerFromJSONTyped,
     TranslationApiLanguages200ResponseOcsDataLanguagesInnerToJSON,
-} from './TranslationApiLanguages200ResponseOcsDataLanguagesInner';
+} from './TranslationApiLanguages200ResponseOcsDataLanguagesInner.ts';
 
 /**
  * 

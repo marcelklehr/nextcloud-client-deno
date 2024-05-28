@@ -16,11 +16,11 @@
 import * as runtime from '../runtime.ts';
 import type {
   AppPasswordConfirmUserPassword200ResponseOcsData,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     AppPasswordConfirmUserPassword200ResponseOcsDataFromJSON,
     AppPasswordConfirmUserPassword200ResponseOcsDataToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface LoginConfirmPasswordRequest {
     password: string;

@@ -18,13 +18,13 @@ import {
     ReferenceApiTouchProvider200ResponseOcsDataFromJSON,
     ReferenceApiTouchProvider200ResponseOcsDataFromJSONTyped,
     ReferenceApiTouchProvider200ResponseOcsDataToJSON,
-} from './ReferenceApiTouchProvider200ResponseOcsData';
+} from './ReferenceApiTouchProvider200ResponseOcsData.ts';
 import type { OCSMeta } from './OCSMeta.ts';
 import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 
 /**
  * 

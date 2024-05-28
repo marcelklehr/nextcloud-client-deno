@@ -18,7 +18,7 @@ import {
     TextToImageTaskFromJSON,
     TextToImageTaskFromJSONTyped,
     TextToImageTaskToJSON,
-} from './TextToImageTask';
+} from './TextToImageTask.ts';
 
 /**
  * 

@@ -18,7 +18,7 @@ import {
     TextProcessingApiListTasksByApp200ResponseOcsFromJSON,
     TextProcessingApiListTasksByApp200ResponseOcsFromJSONTyped,
     TextProcessingApiListTasksByApp200ResponseOcsToJSON,
-} from './TextProcessingApiListTasksByApp200ResponseOcs';
+} from './TextProcessingApiListTasksByApp200ResponseOcs.ts';
 
 /**
  * 

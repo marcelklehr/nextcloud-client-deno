@@ -18,7 +18,7 @@ import {
     UnifiedSearchSearch200ResponseOcsFromJSON,
     UnifiedSearchSearch200ResponseOcsFromJSONTyped,
     UnifiedSearchSearch200ResponseOcsToJSON,
-} from './UnifiedSearchSearch200ResponseOcs';
+} from './UnifiedSearchSearch200ResponseOcs.ts';
 
 /**
  * 

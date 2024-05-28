@@ -18,7 +18,7 @@ import {
     ReferenceApiExtract200ResponseOcsFromJSON,
     ReferenceApiExtract200ResponseOcsFromJSONTyped,
     ReferenceApiExtract200ResponseOcsToJSON,
-} from './ReferenceApiExtract200ResponseOcs';
+} from './ReferenceApiExtract200ResponseOcs.ts';
 
 /**
  * 

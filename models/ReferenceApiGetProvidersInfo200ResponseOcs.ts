@@ -18,13 +18,13 @@ import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 import type { ReferenceProvider } from './ReferenceProvider.ts';
 import {
     ReferenceProviderFromJSON,
     ReferenceProviderFromJSONTyped,
     ReferenceProviderToJSON,
-} from './ReferenceProvider';
+} from './ReferenceProvider.ts';
 
 /**
  * 

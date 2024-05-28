@@ -18,13 +18,13 @@ import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 import type { WhatsNewGet200ResponseOcsData } from './WhatsNewGet200ResponseOcsData.ts';
 import {
     WhatsNewGet200ResponseOcsDataFromJSON,
     WhatsNewGet200ResponseOcsDataFromJSONTyped,
     WhatsNewGet200ResponseOcsDataToJSON,
-} from './WhatsNewGet200ResponseOcsData';
+} from './WhatsNewGet200ResponseOcsData.ts';
 
 /**
  * 

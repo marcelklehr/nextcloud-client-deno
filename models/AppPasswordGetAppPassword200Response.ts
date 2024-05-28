@@ -18,7 +18,7 @@ import {
     AppPasswordGetAppPassword200ResponseOcsFromJSON,
     AppPasswordGetAppPassword200ResponseOcsFromJSONTyped,
     AppPasswordGetAppPassword200ResponseOcsToJSON,
-} from './AppPasswordGetAppPassword200ResponseOcs';
+} from './AppPasswordGetAppPassword200ResponseOcs.ts';
 
 /**
  * 

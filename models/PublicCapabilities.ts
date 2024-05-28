@@ -18,7 +18,7 @@ import {
     PublicCapabilitiesBruteforceFromJSON,
     PublicCapabilitiesBruteforceFromJSONTyped,
     PublicCapabilitiesBruteforceToJSON,
-} from './PublicCapabilitiesBruteforce';
+} from './PublicCapabilitiesBruteforce.ts';
 
 /**
  * 

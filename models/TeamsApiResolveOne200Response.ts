@@ -18,7 +18,7 @@ import {
     TeamsApiResolveOne200ResponseOcsFromJSON,
     TeamsApiResolveOne200ResponseOcsFromJSONTyped,
     TeamsApiResolveOne200ResponseOcsToJSON,
-} from './TeamsApiResolveOne200ResponseOcs';
+} from './TeamsApiResolveOne200ResponseOcs.ts';
 
 /**
  * 

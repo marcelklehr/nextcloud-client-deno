@@ -16,11 +16,11 @@
 import * as runtime from '../runtime.ts';
 import type {
   AppPasswordGetAppPassword403Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     AppPasswordGetAppPassword403ResponseFromJSON,
     AppPasswordGetAppPassword403ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface ProfileApiSetVisibilityRequest {
     paramId: string;

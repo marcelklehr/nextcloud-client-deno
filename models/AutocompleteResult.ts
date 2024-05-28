@@ -18,7 +18,7 @@ import {
     AutocompleteResultStatusFromJSON,
     AutocompleteResultStatusFromJSONTyped,
     AutocompleteResultStatusToJSON,
-} from './AutocompleteResultStatus';
+} from './AutocompleteResultStatus.ts';
 
 /**
  * 

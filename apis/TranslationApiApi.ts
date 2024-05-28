@@ -18,7 +18,7 @@ import type {
   TranslationApiLanguages200Response,
   TranslationApiTranslate200Response,
   TranslationApiTranslate400Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     TranslationApiLanguages200ResponseFromJSON,
     TranslationApiLanguages200ResponseToJSON,
@@ -26,7 +26,7 @@ import {
     TranslationApiTranslate200ResponseToJSON,
     TranslationApiTranslate400ResponseFromJSON,
     TranslationApiTranslate400ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface TranslationApiLanguagesRequest {
     oCSAPIRequest: boolean;

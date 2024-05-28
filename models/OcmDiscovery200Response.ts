@@ -18,7 +18,7 @@ import {
     OcmDiscovery200ResponseResourceTypesInnerFromJSON,
     OcmDiscovery200ResponseResourceTypesInnerFromJSONTyped,
     OcmDiscovery200ResponseResourceTypesInnerToJSON,
-} from './OcmDiscovery200ResponseResourceTypesInner';
+} from './OcmDiscovery200ResponseResourceTypesInner.ts';
 
 /**
  * 

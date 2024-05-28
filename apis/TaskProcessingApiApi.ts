@@ -20,7 +20,7 @@ import type {
   TaskProcessingApiSchedule200Response,
   TaskProcessingApiSchedule500Response,
   TaskProcessingApiTaskTypes200Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     TaskProcessingApiDeleteTask200ResponseFromJSON,
     TaskProcessingApiDeleteTask200ResponseToJSON,
@@ -32,7 +32,7 @@ import {
     TaskProcessingApiSchedule500ResponseToJSON,
     TaskProcessingApiTaskTypes200ResponseFromJSON,
     TaskProcessingApiTaskTypes200ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface TaskProcessingApiCancelTaskRequest {
     taskId: number;

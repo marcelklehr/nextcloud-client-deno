@@ -18,7 +18,7 @@ import {
     TranslationApiTranslate200ResponseOcsFromJSON,
     TranslationApiTranslate200ResponseOcsFromJSONTyped,
     TranslationApiTranslate200ResponseOcsToJSON,
-} from './TranslationApiTranslate200ResponseOcs';
+} from './TranslationApiTranslate200ResponseOcs.ts';
 
 /**
  * 

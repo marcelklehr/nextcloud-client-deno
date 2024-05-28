@@ -18,7 +18,7 @@ import {
     ReferenceApiGetProvidersInfo200ResponseOcsFromJSON,
     ReferenceApiGetProvidersInfo200ResponseOcsFromJSONTyped,
     ReferenceApiGetProvidersInfo200ResponseOcsToJSON,
-} from './ReferenceApiGetProvidersInfo200ResponseOcs';
+} from './ReferenceApiGetProvidersInfo200ResponseOcs.ts';
 
 /**
  * 

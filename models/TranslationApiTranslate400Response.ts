@@ -18,7 +18,7 @@ import {
     TranslationApiTranslate400ResponseOcsFromJSON,
     TranslationApiTranslate400ResponseOcsFromJSONTyped,
     TranslationApiTranslate400ResponseOcsToJSON,
-} from './TranslationApiTranslate400ResponseOcs';
+} from './TranslationApiTranslate400ResponseOcs.ts';
 
 /**
  * 

@@ -18,7 +18,7 @@ import {
     TaskProcessingApiSchedule200ResponseOcsFromJSON,
     TaskProcessingApiSchedule200ResponseOcsFromJSONTyped,
     TaskProcessingApiSchedule200ResponseOcsToJSON,
-} from './TaskProcessingApiSchedule200ResponseOcs';
+} from './TaskProcessingApiSchedule200ResponseOcs.ts';
 
 /**
  * 

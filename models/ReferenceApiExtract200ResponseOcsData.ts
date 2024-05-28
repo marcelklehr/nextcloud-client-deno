@@ -18,7 +18,7 @@ import {
     ReferenceFromJSON,
     ReferenceFromJSONTyped,
     ReferenceToJSON,
-} from './Reference';
+} from './Reference.ts';
 
 /**
  * 

@@ -18,7 +18,7 @@ import {
     TaskProcessingApiTaskTypes200ResponseOcsFromJSON,
     TaskProcessingApiTaskTypes200ResponseOcsFromJSONTyped,
     TaskProcessingApiTaskTypes200ResponseOcsToJSON,
-} from './TaskProcessingApiTaskTypes200ResponseOcs';
+} from './TaskProcessingApiTaskTypes200ResponseOcs.ts';
 
 /**
  * 

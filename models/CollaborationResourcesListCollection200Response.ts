@@ -18,7 +18,7 @@ import {
     CollaborationResourcesListCollection200ResponseOcsFromJSON,
     CollaborationResourcesListCollection200ResponseOcsFromJSONTyped,
     CollaborationResourcesListCollection200ResponseOcsToJSON,
-} from './CollaborationResourcesListCollection200ResponseOcs';
+} from './CollaborationResourcesListCollection200ResponseOcs.ts';
 
 /**
  * 

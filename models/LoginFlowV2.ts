@@ -18,7 +18,7 @@ import {
     LoginFlowV2PollFromJSON,
     LoginFlowV2PollFromJSONTyped,
     LoginFlowV2PollToJSON,
-} from './LoginFlowV2Poll';
+} from './LoginFlowV2Poll.ts';
 
 /**
  * 

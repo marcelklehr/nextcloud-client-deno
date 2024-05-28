@@ -18,7 +18,7 @@ import type {
   AppPasswordConfirmUserPassword200Response,
   AppPasswordGetAppPassword200Response,
   AppPasswordGetAppPassword403Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     AppPasswordConfirmUserPassword200ResponseFromJSON,
     AppPasswordConfirmUserPassword200ResponseToJSON,
@@ -26,7 +26,7 @@ import {
     AppPasswordGetAppPassword200ResponseToJSON,
     AppPasswordGetAppPassword403ResponseFromJSON,
     AppPasswordGetAppPassword403ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface AppPasswordConfirmUserPasswordRequest {
     password: string;

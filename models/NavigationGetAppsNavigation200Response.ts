@@ -18,7 +18,7 @@ import {
     NavigationGetAppsNavigation200ResponseOcsFromJSON,
     NavigationGetAppsNavigation200ResponseOcsFromJSONTyped,
     NavigationGetAppsNavigation200ResponseOcsToJSON,
-} from './NavigationGetAppsNavigation200ResponseOcs';
+} from './NavigationGetAppsNavigation200ResponseOcs.ts';
 
 /**
  * 

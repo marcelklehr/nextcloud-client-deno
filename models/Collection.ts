@@ -18,7 +18,7 @@ import {
     ResourceFromJSON,
     ResourceFromJSONTyped,
     ResourceToJSON,
-} from './Resource';
+} from './Resource.ts';
 
 /**
  * 

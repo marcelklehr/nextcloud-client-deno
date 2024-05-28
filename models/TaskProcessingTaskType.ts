@@ -18,7 +18,7 @@ import {
     TaskProcessingShapeFromJSON,
     TaskProcessingShapeFromJSONTyped,
     TaskProcessingShapeToJSON,
-} from './TaskProcessingShape';
+} from './TaskProcessingShape.ts';
 
 /**
  * 

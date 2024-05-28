@@ -18,7 +18,7 @@ import {
     OcsGetCapabilities200ResponseOcsFromJSON,
     OcsGetCapabilities200ResponseOcsFromJSONTyped,
     OcsGetCapabilities200ResponseOcsToJSON,
-} from './OcsGetCapabilities200ResponseOcs';
+} from './OcsGetCapabilities200ResponseOcs.ts';
 
 /**
  * 

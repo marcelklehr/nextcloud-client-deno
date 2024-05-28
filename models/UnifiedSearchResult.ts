@@ -18,13 +18,13 @@ import {
     UnifiedSearchResultEntryFromJSON,
     UnifiedSearchResultEntryFromJSONTyped,
     UnifiedSearchResultEntryToJSON,
-} from './UnifiedSearchResultEntry';
+} from './UnifiedSearchResultEntry.ts';
 import type { UnifiedSearchSearchCursorParameter } from './UnifiedSearchSearchCursorParameter.ts';
 import {
     UnifiedSearchSearchCursorParameterFromJSON,
     UnifiedSearchSearchCursorParameterFromJSONTyped,
     UnifiedSearchSearchCursorParameterToJSON,
-} from './UnifiedSearchSearchCursorParameter';
+} from './UnifiedSearchSearchCursorParameter.ts';
 
 /**
  * 

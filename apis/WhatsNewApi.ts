@@ -17,13 +17,13 @@ import * as runtime from '../runtime.ts';
 import type {
   AppPasswordGetAppPassword403Response,
   WhatsNewGet200Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     AppPasswordGetAppPassword403ResponseFromJSON,
     AppPasswordGetAppPassword403ResponseToJSON,
     WhatsNewGet200ResponseFromJSON,
     WhatsNewGet200ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface WhatsNewDismissRequest {
     version: string;

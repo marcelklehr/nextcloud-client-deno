@@ -18,7 +18,7 @@ import {
     OpenGraphObjectFromJSON,
     OpenGraphObjectFromJSONTyped,
     OpenGraphObjectToJSON,
-} from './OpenGraphObject';
+} from './OpenGraphObject.ts';
 
 /**
  * 

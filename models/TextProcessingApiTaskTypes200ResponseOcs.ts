@@ -18,13 +18,13 @@ import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 import type { TextProcessingApiTaskTypes200ResponseOcsData } from './TextProcessingApiTaskTypes200ResponseOcsData.ts';
 import {
     TextProcessingApiTaskTypes200ResponseOcsDataFromJSON,
     TextProcessingApiTaskTypes200ResponseOcsDataFromJSONTyped,
     TextProcessingApiTaskTypes200ResponseOcsDataToJSON,
-} from './TextProcessingApiTaskTypes200ResponseOcsData';
+} from './TextProcessingApiTaskTypes200ResponseOcsData.ts';
 
 /**
  * 

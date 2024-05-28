@@ -18,7 +18,7 @@ import {
     AppPasswordConfirmUserPassword200ResponseOcsFromJSON,
     AppPasswordConfirmUserPassword200ResponseOcsFromJSONTyped,
     AppPasswordConfirmUserPassword200ResponseOcsToJSON,
-} from './AppPasswordConfirmUserPassword200ResponseOcs';
+} from './AppPasswordConfirmUserPassword200ResponseOcs.ts';
 
 /**
  * 

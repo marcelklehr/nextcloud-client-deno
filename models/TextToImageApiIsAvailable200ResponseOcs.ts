@@ -18,13 +18,13 @@ import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 import type { TextToImageApiIsAvailable200ResponseOcsData } from './TextToImageApiIsAvailable200ResponseOcsData.ts';
 import {
     TextToImageApiIsAvailable200ResponseOcsDataFromJSON,
     TextToImageApiIsAvailable200ResponseOcsDataFromJSONTyped,
     TextToImageApiIsAvailable200ResponseOcsDataToJSON,
-} from './TextToImageApiIsAvailable200ResponseOcsData';
+} from './TextToImageApiIsAvailable200ResponseOcsData.ts';
 
 /**
  * 

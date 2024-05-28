@@ -18,7 +18,7 @@ import {
     WhatsNewGet200ResponseOcsFromJSON,
     WhatsNewGet200ResponseOcsFromJSONTyped,
     WhatsNewGet200ResponseOcsToJSON,
-} from './WhatsNewGet200ResponseOcs';
+} from './WhatsNewGet200ResponseOcs.ts';
 
 /**
  * 

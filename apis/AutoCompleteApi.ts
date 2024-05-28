@@ -16,11 +16,11 @@
 import * as runtime from '../runtime.ts';
 import type {
   AutoCompleteGet200Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     AutoCompleteGet200ResponseFromJSON,
     AutoCompleteGet200ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface AutoCompleteGetRequest {
     search: string;

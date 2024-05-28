@@ -18,7 +18,7 @@ import {
     NavigationEntryOrderFromJSON,
     NavigationEntryOrderFromJSONTyped,
     NavigationEntryOrderToJSON,
-} from './NavigationEntryOrder';
+} from './NavigationEntryOrder.ts';
 
 /**
  * 

@@ -17,13 +17,13 @@ import * as runtime from '../runtime.ts';
 import type {
   LoginFlowV2,
   LoginFlowV2Credentials,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     LoginFlowV2FromJSON,
     LoginFlowV2ToJSON,
     LoginFlowV2CredentialsFromJSON,
     LoginFlowV2CredentialsToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface ClientFlowLoginV2PollRequest {
     token: string;

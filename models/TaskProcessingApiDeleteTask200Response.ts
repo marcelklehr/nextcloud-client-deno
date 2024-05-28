@@ -18,7 +18,7 @@ import {
     TaskProcessingApiDeleteTask200ResponseOcsFromJSON,
     TaskProcessingApiDeleteTask200ResponseOcsFromJSONTyped,
     TaskProcessingApiDeleteTask200ResponseOcsToJSON,
-} from './TaskProcessingApiDeleteTask200ResponseOcs';
+} from './TaskProcessingApiDeleteTask200ResponseOcs.ts';
 
 /**
  * 

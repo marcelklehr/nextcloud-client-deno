@@ -18,7 +18,7 @@ import {
     TeamFromJSON,
     TeamFromJSONTyped,
     TeamToJSON,
-} from './Team';
+} from './Team.ts';
 
 /**
  * 

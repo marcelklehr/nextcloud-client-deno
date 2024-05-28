@@ -16,11 +16,11 @@
 import * as runtime from '../runtime.ts';
 import type {
   WipeCheckWipe200Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     WipeCheckWipe200ResponseFromJSON,
     WipeCheckWipe200ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface WipeCheckWipeRequest {
     token: string;

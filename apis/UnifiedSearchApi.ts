@@ -19,7 +19,7 @@ import type {
   UnifiedSearchSearch200Response,
   UnifiedSearchSearch400Response,
   UnifiedSearchSearchCursorParameter,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     UnifiedSearchGetProviders200ResponseFromJSON,
     UnifiedSearchGetProviders200ResponseToJSON,
@@ -29,7 +29,7 @@ import {
     UnifiedSearchSearch400ResponseToJSON,
     UnifiedSearchSearchCursorParameterFromJSON,
     UnifiedSearchSearchCursorParameterToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface UnifiedSearchGetProvidersRequest {
     oCSAPIRequest: boolean;

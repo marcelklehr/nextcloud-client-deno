@@ -18,13 +18,13 @@ import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 import type { AutocompleteResult } from './AutocompleteResult.ts';
 import {
     AutocompleteResultFromJSON,
     AutocompleteResultFromJSONTyped,
     AutocompleteResultToJSON,
-} from './AutocompleteResult';
+} from './AutocompleteResult.ts';
 
 /**
  * 

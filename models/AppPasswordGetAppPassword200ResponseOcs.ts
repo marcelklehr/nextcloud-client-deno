@@ -18,13 +18,13 @@ import {
     OCSMetaFromJSON,
     OCSMetaFromJSONTyped,
     OCSMetaToJSON,
-} from './OCSMeta';
+} from './OCSMeta.ts';
 import type { AppPasswordGetAppPassword200ResponseOcsData } from './AppPasswordGetAppPassword200ResponseOcsData.ts';
 import {
     AppPasswordGetAppPassword200ResponseOcsDataFromJSON,
     AppPasswordGetAppPassword200ResponseOcsDataFromJSONTyped,
     AppPasswordGetAppPassword200ResponseOcsDataToJSON,
-} from './AppPasswordGetAppPassword200ResponseOcsData';
+} from './AppPasswordGetAppPassword200ResponseOcsData.ts';
 
 /**
  * 

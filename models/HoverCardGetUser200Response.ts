@@ -18,7 +18,7 @@ import {
     HoverCardGetUser200ResponseOcsFromJSON,
     HoverCardGetUser200ResponseOcsFromJSONTyped,
     HoverCardGetUser200ResponseOcsToJSON,
-} from './HoverCardGetUser200ResponseOcs';
+} from './HoverCardGetUser200ResponseOcs.ts';
 
 /**
  * 

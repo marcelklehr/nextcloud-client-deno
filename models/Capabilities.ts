@@ -18,7 +18,7 @@ import {
     CapabilitiesCoreFromJSON,
     CapabilitiesCoreFromJSONTyped,
     CapabilitiesCoreToJSON,
-} from './CapabilitiesCore';
+} from './CapabilitiesCore.ts';
 
 /**
  * 

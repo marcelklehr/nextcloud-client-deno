@@ -18,7 +18,7 @@ import {
     TeamResourceFromJSON,
     TeamResourceFromJSONTyped,
     TeamResourceToJSON,
-} from './TeamResource';
+} from './TeamResource.ts';
 
 /**
  * 

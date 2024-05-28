@@ -18,7 +18,7 @@ import {
     AutoCompleteGet200ResponseOcsFromJSON,
     AutoCompleteGet200ResponseOcsFromJSONTyped,
     AutoCompleteGet200ResponseOcsToJSON,
-} from './AutoCompleteGet200ResponseOcs';
+} from './AutoCompleteGet200ResponseOcs.ts';
 
 /**
  * 

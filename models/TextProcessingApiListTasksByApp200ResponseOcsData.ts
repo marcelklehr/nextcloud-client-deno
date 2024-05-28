@@ -18,7 +18,7 @@ import {
     TextProcessingTaskFromJSON,
     TextProcessingTaskFromJSONTyped,
     TextProcessingTaskToJSON,
-} from './TextProcessingTask';
+} from './TextProcessingTask.ts';
 
 /**
  * 

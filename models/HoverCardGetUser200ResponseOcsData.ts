@@ -18,7 +18,7 @@ import {
     ContactsActionFromJSON,
     ContactsActionFromJSONTyped,
     ContactsActionToJSON,
-} from './ContactsAction';
+} from './ContactsAction.ts';
 
 /**
  * 

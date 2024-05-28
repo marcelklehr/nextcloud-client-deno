@@ -17,13 +17,13 @@ import * as runtime from '../runtime.ts';
 import type {
   OcmDiscovery200Response,
   TaskProcessingApiSchedule500ResponseOcsData,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     OcmDiscovery200ResponseFromJSON,
     OcmDiscovery200ResponseToJSON,
     TaskProcessingApiSchedule500ResponseOcsDataFromJSON,
     TaskProcessingApiSchedule500ResponseOcsDataToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 /**
  * 

@@ -16,11 +16,11 @@
 import * as runtime from '../runtime.ts';
 import type {
   NavigationGetAppsNavigation200Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     NavigationGetAppsNavigation200ResponseFromJSON,
     NavigationGetAppsNavigation200ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface NavigationGetAppsNavigationRequest {
     oCSAPIRequest: boolean;

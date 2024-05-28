@@ -17,13 +17,13 @@ import * as runtime from '../runtime.ts';
 import type {
   TeamsApiListTeams200Response,
   TeamsApiResolveOne200Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     TeamsApiListTeams200ResponseFromJSON,
     TeamsApiListTeams200ResponseToJSON,
     TeamsApiResolveOne200ResponseFromJSON,
     TeamsApiResolveOne200ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface TeamsApiListTeamsRequest {
     providerId: string;

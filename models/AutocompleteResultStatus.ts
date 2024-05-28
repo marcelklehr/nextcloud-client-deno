@@ -18,14 +18,14 @@ import {
     AutocompleteResultStatusOneOfFromJSON,
     AutocompleteResultStatusOneOfFromJSONTyped,
     AutocompleteResultStatusOneOfToJSON,
-} from './AutocompleteResultStatusOneOf';
+} from './AutocompleteResultStatusOneOf.ts';
 import type { string } from './string.ts';
 import {
     instanceOfstring,
     stringFromJSON,
     stringFromJSONTyped,
     stringToJSON,
-} from './string';
+} from './string.ts';
 
 /**
  * @type AutocompleteResultStatus

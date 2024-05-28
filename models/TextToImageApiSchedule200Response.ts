@@ -18,7 +18,7 @@ import {
     TextToImageApiSchedule200ResponseOcsFromJSON,
     TextToImageApiSchedule200ResponseOcsFromJSONTyped,
     TextToImageApiSchedule200ResponseOcsToJSON,
-} from './TextToImageApiSchedule200ResponseOcs';
+} from './TextToImageApiSchedule200ResponseOcs.ts';
 
 /**
  * 

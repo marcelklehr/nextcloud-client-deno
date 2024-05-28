@@ -18,7 +18,7 @@ import type {
   AppPasswordGetAppPassword403Response,
   CollaborationResourcesListCollection200Response,
   CollaborationResourcesSearchCollections200Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     AppPasswordGetAppPassword403ResponseFromJSON,
     AppPasswordGetAppPassword403ResponseToJSON,
@@ -26,7 +26,7 @@ import {
     CollaborationResourcesListCollection200ResponseToJSON,
     CollaborationResourcesSearchCollections200ResponseFromJSON,
     CollaborationResourcesSearchCollections200ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface CollaborationResourcesAddResourceRequest {
     resourceType: string;

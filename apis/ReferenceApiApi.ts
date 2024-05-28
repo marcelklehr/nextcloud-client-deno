@@ -18,7 +18,7 @@ import type {
   ReferenceApiExtract200Response,
   ReferenceApiGetProvidersInfo200Response,
   ReferenceApiTouchProvider200Response,
-} from '../models/index';
+} from '../models/index.ts';
 import {
     ReferenceApiExtract200ResponseFromJSON,
     ReferenceApiExtract200ResponseToJSON,
@@ -26,7 +26,7 @@ import {
     ReferenceApiGetProvidersInfo200ResponseToJSON,
     ReferenceApiTouchProvider200ResponseFromJSON,
     ReferenceApiTouchProvider200ResponseToJSON,
-} from '../models/index';
+} from '../models/index.ts';
 
 export interface ReferenceApiExtractRequest {
     text: string;
