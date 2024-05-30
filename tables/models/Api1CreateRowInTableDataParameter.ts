@@ -18,8 +18,8 @@ import {
     Api1CreateRowInTableDataParameterOneOfFromJSON,
     Api1CreateRowInTableDataParameterOneOfFromJSONTyped,
     Api1CreateRowInTableDataParameterOneOfToJSON,
-/*} from './Api1CreateRowInTableDataParameterOneOf.ts';
-import type { string } from './string.ts';
+} from './Api1CreateRowInTableDataParameterOneOf.ts';
+/*import type { string } from './string.ts';
 import {
     instanceOfstring,
     stringFromJSON,
