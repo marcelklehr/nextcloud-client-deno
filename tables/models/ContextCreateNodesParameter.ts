@@ -12,13 +12,14 @@
  * Do not edit the class manually.
  */
 
-import type { Array<string> } from './Array&lt;string&gt;.ts';
-import {
+//import type { Array<string> } from './Array&lt;string&gt;.ts';
+/*import {
     instanceOfArray<string>,
     Array<string>FromJSON,
     Array<string>FromJSONTyped,
     Array<string>ToJSON,
 } from './Array&lt;string&gt;.ts';
+*/
 import type { ContextCreateNodesParameterOneOf } from './ContextCreateNodesParameterOneOf.ts';
 import {
     instanceOfContextCreateNodesParameterOneOf,
