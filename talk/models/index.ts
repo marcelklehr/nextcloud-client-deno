@@ -34,7 +34,7 @@ export * from './CallSipDialOut201ResponseOcs.ts';
 export * from './CallSipDialOut201ResponseOcsData.ts';
 export * from './Capabilities.ts';
 export * from './CapabilitiesConfig.ts';
-export * from './CapabilitiesConfigAttachme.ts';
+export * from './CapabilitiesConfigAttachments.ts';
 export * from './CapabilitiesConfigCall.ts';
 export * from './CapabilitiesConfigChat.ts';
 export * from './CapabilitiesConfigConversations.ts';
