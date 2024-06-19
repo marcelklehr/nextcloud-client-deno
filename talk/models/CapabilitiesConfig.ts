@@ -43,12 +43,12 @@ import {
     CapabilitiesConfigFederationFromJSONTyped,
     CapabilitiesConfigFederationToJSON,
 } from './CapabilitiesConfigFederation.ts';
-import type { CapabilitiesConfigAttachments } from './CapabilitiesConfigAttachme.ts.ts';
+import type { CapabilitiesConfigAttachments } from './CapabilitiesConfigAttachments.ts';
 import {
     CapabilitiesConfigAttachmentsFromJSON,
     CapabilitiesConfigAttachmentsFromJSONTyped,
     CapabilitiesConfigAttachmentsToJSON,
-} from './CapabilitiesConfigAttachme.ts';
+} from './CapabilitiesConfigAttachments.ts';
 import type { CapabilitiesConfigSignaling } from './CapabilitiesConfigSignaling.ts';
 import {
     CapabilitiesConfigSignalingFromJSON,
