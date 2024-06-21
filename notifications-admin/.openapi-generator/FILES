@@ -1,0 +1,14 @@
+.openapi-generator-ignore
+apis/ApiApi.ts
+apis/SettingsApi.ts
+apis/index.ts
+index.ts
+models/ApiGenerateNotification200Response.ts
+models/ApiGenerateNotification200ResponseOcs.ts
+models/ApiGenerateNotification400Response.ts
+models/ApiGenerateNotification400ResponseOcs.ts
+models/Capabilities.ts
+models/CapabilitiesNotifications.ts
+models/OCSMeta.ts
+models/index.ts
+runtime.ts
