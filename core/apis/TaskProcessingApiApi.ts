@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -16,20 +16,44 @@
 import * as runtime from '../runtime.ts';
 import type {
   TaskProcessingApiDeleteTask200Response,
+  TaskProcessingApiGetNextScheduledTask200Response,
+  TaskProcessingApiGetNextScheduledTaskRequest,
   TaskProcessingApiListTasksByApp200Response,
+  TaskProcessingApiListTasksByAppRequest,
+  TaskProcessingApiListTasksRequest,
   TaskProcessingApiSchedule200Response,
   TaskProcessingApiSchedule500Response,
+  TaskProcessingApiScheduleRequest,
+  TaskProcessingApiSetFileContentsExApp201Response,
+  TaskProcessingApiSetProgressRequest,
+  TaskProcessingApiSetResultRequest,
   TaskProcessingApiTaskTypes200Response,
 } from '../models/index.ts';
 import {
     TaskProcessingApiDeleteTask200ResponseFromJSON,
     TaskProcessingApiDeleteTask200ResponseToJSON,
+    TaskProcessingApiGetNextScheduledTask200ResponseFromJSON,
+    TaskProcessingApiGetNextScheduledTask200ResponseToJSON,
+    TaskProcessingApiGetNextScheduledTaskRequestFromJSON,
+    TaskProcessingApiGetNextScheduledTaskRequestToJSON,
     TaskProcessingApiListTasksByApp200ResponseFromJSON,
     TaskProcessingApiListTasksByApp200ResponseToJSON,
+    TaskProcessingApiListTasksByAppRequestFromJSON,
+    TaskProcessingApiListTasksByAppRequestToJSON,
+    TaskProcessingApiListTasksRequestFromJSON,
+    TaskProcessingApiListTasksRequestToJSON,
     TaskProcessingApiSchedule200ResponseFromJSON,
     TaskProcessingApiSchedule200ResponseToJSON,
     TaskProcessingApiSchedule500ResponseFromJSON,
     TaskProcessingApiSchedule500ResponseToJSON,
+    TaskProcessingApiScheduleRequestFromJSON,
+    TaskProcessingApiScheduleRequestToJSON,
+    TaskProcessingApiSetFileContentsExApp201ResponseFromJSON,
+    TaskProcessingApiSetFileContentsExApp201ResponseToJSON,
+    TaskProcessingApiSetProgressRequestFromJSON,
+    TaskProcessingApiSetProgressRequestToJSON,
+    TaskProcessingApiSetResultRequestFromJSON,
+    TaskProcessingApiSetResultRequestToJSON,
     TaskProcessingApiTaskTypes200ResponseFromJSON,
     TaskProcessingApiTaskTypes200ResponseToJSON,
 } from '../models/index.ts';
@@ -50,42 +74,53 @@ export interface TaskProcessingApiGetFileContentsRequest {
     oCSAPIRequest: boolean;
 }
 
+export interface TaskProcessingApiGetFileContentsExAppRequest {
+    taskId: number;
+    fileId: number;
+    oCSAPIRequest: boolean;
+}
+
+export interface TaskProcessingApiGetNextScheduledTaskOperationRequest {
+    oCSAPIRequest: boolean;
+    taskProcessingApiGetNextScheduledTaskRequest: TaskProcessingApiGetNextScheduledTaskRequest;
+}
+
 export interface TaskProcessingApiGetTaskRequest {
     id: number;
     oCSAPIRequest: boolean;
 }
 
-export interface TaskProcessingApiListTasksByAppRequest {
+export interface TaskProcessingApiListTasksOperationRequest {
+    oCSAPIRequest: boolean;
+    taskProcessingApiListTasksRequest?: TaskProcessingApiListTasksRequest;
+}
+
+export interface TaskProcessingApiListTasksByAppOperationRequest {
     appId: string;
     oCSAPIRequest: boolean;
-    customId?: string;
+    taskProcessingApiListTasksByAppRequest?: TaskProcessingApiListTasksByAppRequest;
 }
 
-export interface TaskProcessingApiListTasksByUserRequest {
+export interface TaskProcessingApiScheduleOperationRequest {
     oCSAPIRequest: boolean;
-    taskType?: string;
-    customId?: string;
+    taskProcessingApiScheduleRequest: TaskProcessingApiScheduleRequest;
 }
 
-export interface TaskProcessingApiScheduleRequest {
-    input: string;
-    type: string;
-    appId: string;
-    oCSAPIRequest: boolean;
-    customId?: string;
-}
-
-export interface TaskProcessingApiSetProgressRequest {
-    progress: number;
+export interface TaskProcessingApiSetFileContentsExAppRequest {
     taskId: number;
     oCSAPIRequest: boolean;
 }
 
-export interface TaskProcessingApiSetResultRequest {
+export interface TaskProcessingApiSetProgressOperationRequest {
     taskId: number;
     oCSAPIRequest: boolean;
-    output?: string;
-    errorMessage?: string;
+    taskProcessingApiSetProgressRequest: TaskProcessingApiSetProgressRequest;
+}
+
+export interface TaskProcessingApiSetResultOperationRequest {
+    taskId: number;
+    oCSAPIRequest: boolean;
+    taskProcessingApiSetResultRequest?: TaskProcessingApiSetResultRequest;
 }
 
 export interface TaskProcessingApiTaskTypesRequest {
@@ -98,7 +133,7 @@ export interface TaskProcessingApiTaskTypesRequest {
 export class TaskProcessingApiApi extends runtime.BaseAPI {
 
     /**
-     * This endpoint cancels a task
+     * Cancels a task
      */
     async taskProcessingApiCancelTaskRaw(requestParameters: TaskProcessingApiCancelTaskRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiSchedule200Response>> {
         if (requestParameters['taskId'] == null) {
@@ -145,7 +180,7 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * This endpoint cancels a task
+     * Cancels a task
      */
     async taskProcessingApiCancelTask(requestParameters: TaskProcessingApiCancelTaskRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiSchedule200Response> {
         const response = await this.taskProcessingApiCancelTaskRaw(requestParameters, initOverrides);
@@ -153,7 +188,7 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * This endpoint allows to delete a scheduled task for a user
+     * Deletes a task
      */
     async taskProcessingApiDeleteTaskRaw(requestParameters: TaskProcessingApiDeleteTaskRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiDeleteTask200Response>> {
         if (requestParameters['id'] == null) {
@@ -200,7 +235,7 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * This endpoint allows to delete a scheduled task for a user
+     * Deletes a task
      */
     async taskProcessingApiDeleteTask(requestParameters: TaskProcessingApiDeleteTaskRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiDeleteTask200Response> {
         const response = await this.taskProcessingApiDeleteTaskRaw(requestParameters, initOverrides);
@@ -208,7 +243,7 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * This endpoint returns the contents of a file referenced in a task
+     * Returns the contents of a file referenced in a task
      */
     async taskProcessingApiGetFileContentsRaw(requestParameters: TaskProcessingApiGetFileContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
         if (requestParameters['taskId'] == null) {
@@ -262,7 +297,7 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * This endpoint returns the contents of a file referenced in a task
+     * Returns the contents of a file referenced in a task
      */
     async taskProcessingApiGetFileContents(requestParameters: TaskProcessingApiGetFileContentsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
         const response = await this.taskProcessingApiGetFileContentsRaw(requestParameters, initOverrides);
@@ -270,7 +305,139 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * This endpoint allows checking the status and results of a task. Tasks are removed 1 week after receiving their last update
+     * This endpoint requires admin access
+     * Returns the contents of a file referenced in a task(ExApp route version)
+     */
+    async taskProcessingApiGetFileContentsExAppRaw(requestParameters: TaskProcessingApiGetFileContentsExAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+        if (requestParameters['taskId'] == null) {
+            throw new runtime.RequiredError(
+                'taskId',
+                'Required parameter "taskId" was null or undefined when calling taskProcessingApiGetFileContentsExApp().'
+            );
+        }
+
+        if (requestParameters['fileId'] == null) {
+            throw new runtime.RequiredError(
+                'fileId',
+                'Required parameter "fileId" was null or undefined when calling taskProcessingApiGetFileContentsExApp().'
+            );
+        }
+
+        if (requestParameters['oCSAPIRequest'] == null) {
+            throw new runtime.RequiredError(
+                'oCSAPIRequest',
+                'Required parameter "oCSAPIRequest" was null or undefined when calling taskProcessingApiGetFileContentsExApp().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (requestParameters['oCSAPIRequest'] != null) {
+            headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
+        }
+
+        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
+            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
+        }
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer_auth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/ocs/v2.php/taskprocessing/tasks_provider/{taskId}/file/{fileId}`.replace(`{${"taskId"}}`, encodeURIComponent(String(requestParameters['taskId']))).replace(`{${"fileId"}}`, encodeURIComponent(String(requestParameters['fileId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.BlobApiResponse(response);
+    }
+
+    /**
+     * This endpoint requires admin access
+     * Returns the contents of a file referenced in a task(ExApp route version)
+     */
+    async taskProcessingApiGetFileContentsExApp(requestParameters: TaskProcessingApiGetFileContentsExAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+        const response = await this.taskProcessingApiGetFileContentsExAppRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This endpoint requires admin access
+     * Returns the next scheduled task for the taskTypeId
+     */
+    async taskProcessingApiGetNextScheduledTaskRaw(requestParameters: TaskProcessingApiGetNextScheduledTaskOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiGetNextScheduledTask200Response>> {
+        if (requestParameters['oCSAPIRequest'] == null) {
+            throw new runtime.RequiredError(
+                'oCSAPIRequest',
+                'Required parameter "oCSAPIRequest" was null or undefined when calling taskProcessingApiGetNextScheduledTask().'
+            );
+        }
+
+        if (requestParameters['taskProcessingApiGetNextScheduledTaskRequest'] == null) {
+            throw new runtime.RequiredError(
+                'taskProcessingApiGetNextScheduledTaskRequest',
+                'Required parameter "taskProcessingApiGetNextScheduledTaskRequest" was null or undefined when calling taskProcessingApiGetNextScheduledTask().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['oCSAPIRequest'] != null) {
+            headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
+        }
+
+        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
+            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
+        }
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer_auth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/ocs/v2.php/taskprocessing/tasks_provider/next`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+            body: TaskProcessingApiGetNextScheduledTaskRequestToJSON(requestParameters['taskProcessingApiGetNextScheduledTaskRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TaskProcessingApiGetNextScheduledTask200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * This endpoint requires admin access
+     * Returns the next scheduled task for the taskTypeId
+     */
+    async taskProcessingApiGetNextScheduledTask(requestParameters: TaskProcessingApiGetNextScheduledTaskOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiGetNextScheduledTask200Response | null | undefined > {
+        const response = await this.taskProcessingApiGetNextScheduledTaskRaw(requestParameters, initOverrides);
+        switch (response.raw.status) {
+            case 200:
+                return await response.value();
+            case 204:
+                return null;
+            default:
+                return await response.value();
+        }
+    }
+
+    /**
+     * Tasks are removed 1 week after receiving their last update
+     * Gets a task including status and result
      */
     async taskProcessingApiGetTaskRaw(requestParameters: TaskProcessingApiGetTaskRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiSchedule200Response>> {
         if (requestParameters['id'] == null) {
@@ -317,7 +484,8 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * This endpoint allows checking the status and results of a task. Tasks are removed 1 week after receiving their last update
+     * Tasks are removed 1 week after receiving their last update
+     * Gets a task including status and result
      */
     async taskProcessingApiGetTask(requestParameters: TaskProcessingApiGetTaskRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiSchedule200Response> {
         const response = await this.taskProcessingApiGetTaskRaw(requestParameters, initOverrides);
@@ -325,86 +493,21 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * This endpoint returns a list of tasks of a user that are related with a specific appId and optionally with an identifier
+     * Returns tasks for the current user filtered by the optional taskType and optional customId
      */
-    async taskProcessingApiListTasksByAppRaw(requestParameters: TaskProcessingApiListTasksByAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiListTasksByApp200Response>> {
-        if (requestParameters['appId'] == null) {
-            throw new runtime.RequiredError(
-                'appId',
-                'Required parameter "appId" was null or undefined when calling taskProcessingApiListTasksByApp().'
-            );
-        }
-
+    async taskProcessingApiListTasksRaw(requestParameters: TaskProcessingApiListTasksOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiListTasksByApp200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
-                'Required parameter "oCSAPIRequest" was null or undefined when calling taskProcessingApiListTasksByApp().'
+                'Required parameter "oCSAPIRequest" was null or undefined when calling taskProcessingApiListTasks().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['customId'] != null) {
-            queryParameters['customId'] = requestParameters['customId'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
 
-        if (requestParameters['oCSAPIRequest'] != null) {
-            headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
-        }
-
-        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
-            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
-        }
-        if (this.configuration && this.configuration.accessToken) {
-            const token = this.configuration.accessToken;
-            const tokenString = await token("bearer_auth", []);
-
-            if (tokenString) {
-                headerParameters["Authorization"] = `Bearer ${tokenString}`;
-            }
-        }
-        const response = await this.request({
-            path: `/ocs/v2.php/taskprocessing/tasks/app/{appId}`.replace(`{${"appId"}}`, encodeURIComponent(String(requestParameters['appId']))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => TaskProcessingApiListTasksByApp200ResponseFromJSON(jsonValue));
-    }
-
-    /**
-     * This endpoint returns a list of tasks of a user that are related with a specific appId and optionally with an identifier
-     */
-    async taskProcessingApiListTasksByApp(requestParameters: TaskProcessingApiListTasksByAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiListTasksByApp200Response> {
-        const response = await this.taskProcessingApiListTasksByAppRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * This endpoint returns a list of tasks of a user that are related with a specific appId and optionally with an identifier
-     */
-    async taskProcessingApiListTasksByUserRaw(requestParameters: TaskProcessingApiListTasksByUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiListTasksByApp200Response>> {
-        if (requestParameters['oCSAPIRequest'] == null) {
-            throw new runtime.RequiredError(
-                'oCSAPIRequest',
-                'Required parameter "oCSAPIRequest" was null or undefined when calling taskProcessingApiListTasksByUser().'
-            );
-        }
-
-        const queryParameters: any = {};
-
-        if (requestParameters['taskType'] != null) {
-            queryParameters['taskType'] = requestParameters['taskType'];
-        }
-
-        if (requestParameters['customId'] != null) {
-            queryParameters['customId'] = requestParameters['customId'];
-        }
-
-        const headerParameters: runtime.HTTPHeaders = {};
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -426,44 +529,82 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: TaskProcessingApiListTasksRequestToJSON(requestParameters['taskProcessingApiListTasksRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TaskProcessingApiListTasksByApp200ResponseFromJSON(jsonValue));
     }
 
     /**
-     * This endpoint returns a list of tasks of a user that are related with a specific appId and optionally with an identifier
+     * Returns tasks for the current user filtered by the optional taskType and optional customId
      */
-    async taskProcessingApiListTasksByUser(requestParameters: TaskProcessingApiListTasksByUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiListTasksByApp200Response> {
-        const response = await this.taskProcessingApiListTasksByUserRaw(requestParameters, initOverrides);
+    async taskProcessingApiListTasks(requestParameters: TaskProcessingApiListTasksOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiListTasksByApp200Response> {
+        const response = await this.taskProcessingApiListTasksRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * This endpoint allows scheduling a task
+     * Returns tasks for the current user filtered by the appId and optional customId
      */
-    async taskProcessingApiScheduleRaw(requestParameters: TaskProcessingApiScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiSchedule200Response>> {
-        if (requestParameters['input'] == null) {
-            throw new runtime.RequiredError(
-                'input',
-                'Required parameter "input" was null or undefined when calling taskProcessingApiSchedule().'
-            );
-        }
-
-        if (requestParameters['type'] == null) {
-            throw new runtime.RequiredError(
-                'type',
-                'Required parameter "type" was null or undefined when calling taskProcessingApiSchedule().'
-            );
-        }
-
+    async taskProcessingApiListTasksByAppRaw(requestParameters: TaskProcessingApiListTasksByAppOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiListTasksByApp200Response>> {
         if (requestParameters['appId'] == null) {
             throw new runtime.RequiredError(
                 'appId',
-                'Required parameter "appId" was null or undefined when calling taskProcessingApiSchedule().'
+                'Required parameter "appId" was null or undefined when calling taskProcessingApiListTasksByApp().'
             );
         }
 
+        if (requestParameters['oCSAPIRequest'] == null) {
+            throw new runtime.RequiredError(
+                'oCSAPIRequest',
+                'Required parameter "oCSAPIRequest" was null or undefined when calling taskProcessingApiListTasksByApp().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['oCSAPIRequest'] != null) {
+            headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
+        }
+
+        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
+            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
+        }
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer_auth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/ocs/v2.php/taskprocessing/tasks/app/{appId}`.replace(`{${"appId"}}`, encodeURIComponent(String(requestParameters['appId']))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+            body: TaskProcessingApiListTasksByAppRequestToJSON(requestParameters['taskProcessingApiListTasksByAppRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TaskProcessingApiListTasksByApp200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Returns tasks for the current user filtered by the appId and optional customId
+     */
+    async taskProcessingApiListTasksByApp(requestParameters: TaskProcessingApiListTasksByAppOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiListTasksByApp200Response> {
+        const response = await this.taskProcessingApiListTasksByAppRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Schedules a task
+     */
+    async taskProcessingApiScheduleRaw(requestParameters: TaskProcessingApiScheduleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiSchedule200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
@@ -471,25 +612,18 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
             );
         }
 
+        if (requestParameters['taskProcessingApiScheduleRequest'] == null) {
+            throw new runtime.RequiredError(
+                'taskProcessingApiScheduleRequest',
+                'Required parameter "taskProcessingApiScheduleRequest" was null or undefined when calling taskProcessingApiSchedule().'
+            );
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters['input'] != null) {
-            queryParameters['input'] = requestParameters['input'];
-        }
-
-        if (requestParameters['type'] != null) {
-            queryParameters['type'] = requestParameters['type'];
-        }
-
-        if (requestParameters['appId'] != null) {
-            queryParameters['appId'] = requestParameters['appId'];
-        }
-
-        if (requestParameters['customId'] != null) {
-            queryParameters['customId'] = requestParameters['customId'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -511,49 +645,40 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: TaskProcessingApiScheduleRequestToJSON(requestParameters['taskProcessingApiScheduleRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TaskProcessingApiSchedule200ResponseFromJSON(jsonValue));
     }
 
     /**
-     * This endpoint allows scheduling a task
+     * Schedules a task
      */
-    async taskProcessingApiSchedule(requestParameters: TaskProcessingApiScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiSchedule200Response> {
+    async taskProcessingApiSchedule(requestParameters: TaskProcessingApiScheduleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiSchedule200Response> {
         const response = await this.taskProcessingApiScheduleRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * This endpoint sets the task progress
+     * Use field \'file\' for the file upload This endpoint requires admin access
+     * Upload a file so it can be referenced in a task result (ExApp route version)
      */
-    async taskProcessingApiSetProgressRaw(requestParameters: TaskProcessingApiSetProgressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiSchedule200Response>> {
-        if (requestParameters['progress'] == null) {
-            throw new runtime.RequiredError(
-                'progress',
-                'Required parameter "progress" was null or undefined when calling taskProcessingApiSetProgress().'
-            );
-        }
-
+    async taskProcessingApiSetFileContentsExAppRaw(requestParameters: TaskProcessingApiSetFileContentsExAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiSetFileContentsExApp201Response>> {
         if (requestParameters['taskId'] == null) {
             throw new runtime.RequiredError(
                 'taskId',
-                'Required parameter "taskId" was null or undefined when calling taskProcessingApiSetProgress().'
+                'Required parameter "taskId" was null or undefined when calling taskProcessingApiSetFileContentsExApp().'
             );
         }
 
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
-                'Required parameter "oCSAPIRequest" was null or undefined when calling taskProcessingApiSetProgress().'
+                'Required parameter "oCSAPIRequest" was null or undefined when calling taskProcessingApiSetFileContentsExApp().'
             );
         }
 
         const queryParameters: any = {};
-
-        if (requestParameters['progress'] != null) {
-            queryParameters['progress'] = requestParameters['progress'];
-        }
 
         const headerParameters: runtime.HTTPHeaders = {};
 
@@ -573,27 +698,96 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/ocs/v2.php/taskprocessing/tasks/{taskId}/progress`.replace(`{${"taskId"}}`, encodeURIComponent(String(requestParameters['taskId']))),
+            path: `/ocs/v2.php/taskprocessing/tasks_provider/{taskId}/file`.replace(`{${"taskId"}}`, encodeURIComponent(String(requestParameters['taskId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TaskProcessingApiSetFileContentsExApp201ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Use field \'file\' for the file upload This endpoint requires admin access
+     * Upload a file so it can be referenced in a task result (ExApp route version)
+     */
+    async taskProcessingApiSetFileContentsExApp(requestParameters: TaskProcessingApiSetFileContentsExAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiSetFileContentsExApp201Response> {
+        const response = await this.taskProcessingApiSetFileContentsExAppRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * This endpoint requires admin access
+     * Sets the task progress
+     */
+    async taskProcessingApiSetProgressRaw(requestParameters: TaskProcessingApiSetProgressOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiSchedule200Response>> {
+        if (requestParameters['taskId'] == null) {
+            throw new runtime.RequiredError(
+                'taskId',
+                'Required parameter "taskId" was null or undefined when calling taskProcessingApiSetProgress().'
+            );
+        }
+
+        if (requestParameters['oCSAPIRequest'] == null) {
+            throw new runtime.RequiredError(
+                'oCSAPIRequest',
+                'Required parameter "oCSAPIRequest" was null or undefined when calling taskProcessingApiSetProgress().'
+            );
+        }
+
+        if (requestParameters['taskProcessingApiSetProgressRequest'] == null) {
+            throw new runtime.RequiredError(
+                'taskProcessingApiSetProgressRequest',
+                'Required parameter "taskProcessingApiSetProgressRequest" was null or undefined when calling taskProcessingApiSetProgress().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['oCSAPIRequest'] != null) {
+            headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
+        }
+
+        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
+            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
+        }
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer_auth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/ocs/v2.php/taskprocessing/tasks_provider/{taskId}/progress`.replace(`{${"taskId"}}`, encodeURIComponent(String(requestParameters['taskId']))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: TaskProcessingApiSetProgressRequestToJSON(requestParameters['taskProcessingApiSetProgressRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TaskProcessingApiSchedule200ResponseFromJSON(jsonValue));
     }
 
     /**
-     * This endpoint sets the task progress
+     * This endpoint requires admin access
+     * Sets the task progress
      */
-    async taskProcessingApiSetProgress(requestParameters: TaskProcessingApiSetProgressRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiSchedule200Response> {
+    async taskProcessingApiSetProgress(requestParameters: TaskProcessingApiSetProgressOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiSchedule200Response> {
         const response = await this.taskProcessingApiSetProgressRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * This endpoint sets the task progress
+     * This endpoint requires admin access
+     * Sets the task result
      */
-    async taskProcessingApiSetResultRaw(requestParameters: TaskProcessingApiSetResultRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiSchedule200Response>> {
+    async taskProcessingApiSetResultRaw(requestParameters: TaskProcessingApiSetResultOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiSchedule200Response>> {
         if (requestParameters['taskId'] == null) {
             throw new runtime.RequiredError(
                 'taskId',
@@ -610,15 +804,9 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['output'] != null) {
-            queryParameters['output'] = requestParameters['output'];
-        }
-
-        if (requestParameters['errorMessage'] != null) {
-            queryParameters['errorMessage'] = requestParameters['errorMessage'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -636,25 +824,27 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
             }
         }
         const response = await this.request({
-            path: `/ocs/v2.php/taskprocessing/tasks/{taskId}/result`.replace(`{${"taskId"}}`, encodeURIComponent(String(requestParameters['taskId']))),
+            path: `/ocs/v2.php/taskprocessing/tasks_provider/{taskId}/result`.replace(`{${"taskId"}}`, encodeURIComponent(String(requestParameters['taskId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: TaskProcessingApiSetResultRequestToJSON(requestParameters['taskProcessingApiSetResultRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TaskProcessingApiSchedule200ResponseFromJSON(jsonValue));
     }
 
     /**
-     * This endpoint sets the task progress
+     * This endpoint requires admin access
+     * Sets the task result
      */
-    async taskProcessingApiSetResult(requestParameters: TaskProcessingApiSetResultRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiSchedule200Response> {
+    async taskProcessingApiSetResult(requestParameters: TaskProcessingApiSetResultOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiSchedule200Response> {
         const response = await this.taskProcessingApiSetResultRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
-     * This endpoint returns all available TaskProcessing task types
+     * Returns all available TaskProcessing task types
      */
     async taskProcessingApiTaskTypesRaw(requestParameters: TaskProcessingApiTaskTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TaskProcessingApiTaskTypes200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
@@ -694,7 +884,7 @@ export class TaskProcessingApiApi extends runtime.BaseAPI {
     }
 
     /**
-     * This endpoint returns all available TaskProcessing task types
+     * Returns all available TaskProcessing task types
      */
     async taskProcessingApiTaskTypes(requestParameters: TaskProcessingApiTaskTypesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TaskProcessingApiTaskTypes200Response> {
         const response = await this.taskProcessingApiTaskTypesRaw(requestParameters, initOverrides);

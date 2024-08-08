@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -16,21 +16,24 @@
 import * as runtime from '../runtime.ts';
 import type {
   AppPasswordConfirmUserPassword200Response,
+  AppPasswordConfirmUserPasswordRequest,
   AppPasswordGetAppPassword200Response,
   AppPasswordGetAppPassword403Response,
 } from '../models/index.ts';
 import {
     AppPasswordConfirmUserPassword200ResponseFromJSON,
     AppPasswordConfirmUserPassword200ResponseToJSON,
+    AppPasswordConfirmUserPasswordRequestFromJSON,
+    AppPasswordConfirmUserPasswordRequestToJSON,
     AppPasswordGetAppPassword200ResponseFromJSON,
     AppPasswordGetAppPassword200ResponseToJSON,
     AppPasswordGetAppPassword403ResponseFromJSON,
     AppPasswordGetAppPassword403ResponseToJSON,
 } from '../models/index.ts';
 
-export interface AppPasswordConfirmUserPasswordRequest {
-    password: string;
+export interface AppPasswordConfirmUserPasswordOperationRequest {
     oCSAPIRequest: boolean;
+    appPasswordConfirmUserPasswordRequest: AppPasswordConfirmUserPasswordRequest;
 }
 
 export interface AppPasswordDeleteAppPasswordRequest {
@@ -53,14 +56,7 @@ export class AppPasswordApi extends runtime.BaseAPI {
     /**
      * Confirm the user password
      */
-    async appPasswordConfirmUserPasswordRaw(requestParameters: AppPasswordConfirmUserPasswordRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppPasswordConfirmUserPassword200Response>> {
-        if (requestParameters['password'] == null) {
-            throw new runtime.RequiredError(
-                'password',
-                'Required parameter "password" was null or undefined when calling appPasswordConfirmUserPassword().'
-            );
-        }
-
+    async appPasswordConfirmUserPasswordRaw(requestParameters: AppPasswordConfirmUserPasswordOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppPasswordConfirmUserPassword200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
@@ -68,13 +64,18 @@ export class AppPasswordApi extends runtime.BaseAPI {
             );
         }
 
-        const queryParameters: any = {};
-
-        if (requestParameters['password'] != null) {
-            queryParameters['password'] = requestParameters['password'];
+        if (requestParameters['appPasswordConfirmUserPasswordRequest'] == null) {
+            throw new runtime.RequiredError(
+                'appPasswordConfirmUserPasswordRequest',
+                'Required parameter "appPasswordConfirmUserPasswordRequest" was null or undefined when calling appPasswordConfirmUserPassword().'
+            );
         }
 
+        const queryParameters: any = {};
+
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -96,6 +97,7 @@ export class AppPasswordApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
+            body: AppPasswordConfirmUserPasswordRequestToJSON(requestParameters['appPasswordConfirmUserPasswordRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppPasswordConfirmUserPassword200ResponseFromJSON(jsonValue));
@@ -104,7 +106,7 @@ export class AppPasswordApi extends runtime.BaseAPI {
     /**
      * Confirm the user password
      */
-    async appPasswordConfirmUserPassword(requestParameters: AppPasswordConfirmUserPasswordRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppPasswordConfirmUserPassword200Response> {
+    async appPasswordConfirmUserPassword(requestParameters: AppPasswordConfirmUserPasswordOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppPasswordConfirmUserPassword200Response> {
         const response = await this.appPasswordConfirmUserPasswordRaw(requestParameters, initOverrides);
         return await response.value();
     }

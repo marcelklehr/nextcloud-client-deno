@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -16,34 +16,33 @@
 import * as runtime from '../runtime.ts';
 import type {
   UnifiedSearchGetProviders200Response,
+  UnifiedSearchGetProvidersRequest,
   UnifiedSearchSearch200Response,
   UnifiedSearchSearch400Response,
-  UnifiedSearchSearchCursorParameter,
+  UnifiedSearchSearchRequest,
 } from '../models/index.ts';
 import {
     UnifiedSearchGetProviders200ResponseFromJSON,
     UnifiedSearchGetProviders200ResponseToJSON,
+    UnifiedSearchGetProvidersRequestFromJSON,
+    UnifiedSearchGetProvidersRequestToJSON,
     UnifiedSearchSearch200ResponseFromJSON,
     UnifiedSearchSearch200ResponseToJSON,
     UnifiedSearchSearch400ResponseFromJSON,
     UnifiedSearchSearch400ResponseToJSON,
-    UnifiedSearchSearchCursorParameterFromJSON,
-    UnifiedSearchSearchCursorParameterToJSON,
+    UnifiedSearchSearchRequestFromJSON,
+    UnifiedSearchSearchRequestToJSON,
 } from '../models/index.ts';
 
-export interface UnifiedSearchGetProvidersRequest {
+export interface UnifiedSearchGetProvidersOperationRequest {
     oCSAPIRequest: boolean;
-    from?: string;
+    unifiedSearchGetProvidersRequest?: UnifiedSearchGetProvidersRequest;
 }
 
-export interface UnifiedSearchSearchRequest {
+export interface UnifiedSearchSearchOperationRequest {
     providerId: string;
     oCSAPIRequest: boolean;
-    term?: string;
-    sortOrder?: number;
-    limit?: number;
-    cursor?: UnifiedSearchSearchCursorParameter;
-    from?: string;
+    unifiedSearchSearchRequest?: UnifiedSearchSearchRequest;
 }
 
 /**
@@ -54,7 +53,7 @@ export class UnifiedSearchApi extends runtime.BaseAPI {
     /**
      * Get the providers for unified search
      */
-    async unifiedSearchGetProvidersRaw(requestParameters: UnifiedSearchGetProvidersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UnifiedSearchGetProviders200Response>> {
+    async unifiedSearchGetProvidersRaw(requestParameters: UnifiedSearchGetProvidersOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UnifiedSearchGetProviders200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
@@ -64,11 +63,9 @@ export class UnifiedSearchApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['from'] != null) {
-            queryParameters['from'] = requestParameters['from'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -90,6 +87,7 @@ export class UnifiedSearchApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: UnifiedSearchGetProvidersRequestToJSON(requestParameters['unifiedSearchGetProvidersRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UnifiedSearchGetProviders200ResponseFromJSON(jsonValue));
@@ -98,7 +96,7 @@ export class UnifiedSearchApi extends runtime.BaseAPI {
     /**
      * Get the providers for unified search
      */
-    async unifiedSearchGetProviders(requestParameters: UnifiedSearchGetProvidersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UnifiedSearchGetProviders200Response> {
+    async unifiedSearchGetProviders(requestParameters: UnifiedSearchGetProvidersOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UnifiedSearchGetProviders200Response> {
         const response = await this.unifiedSearchGetProvidersRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -107,7 +105,7 @@ export class UnifiedSearchApi extends runtime.BaseAPI {
      * Additional filters are available for each provider. Send a request to /providers endpoint to list providers with their available filters.
      * Launch a search for a specific search provider.
      */
-    async unifiedSearchSearchRaw(requestParameters: UnifiedSearchSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UnifiedSearchSearch200Response>> {
+    async unifiedSearchSearchRaw(requestParameters: UnifiedSearchSearchOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UnifiedSearchSearch200Response>> {
         if (requestParameters['providerId'] == null) {
             throw new runtime.RequiredError(
                 'providerId',
@@ -124,27 +122,9 @@ export class UnifiedSearchApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['term'] != null) {
-            queryParameters['term'] = requestParameters['term'];
-        }
-
-        if (requestParameters['sortOrder'] != null) {
-            queryParameters['sortOrder'] = requestParameters['sortOrder'];
-        }
-
-        if (requestParameters['limit'] != null) {
-            queryParameters['limit'] = requestParameters['limit'];
-        }
-
-        if (requestParameters['cursor'] != null) {
-            queryParameters['cursor'] = requestParameters['cursor'];
-        }
-
-        if (requestParameters['from'] != null) {
-            queryParameters['from'] = requestParameters['from'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -166,6 +146,7 @@ export class UnifiedSearchApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: UnifiedSearchSearchRequestToJSON(requestParameters['unifiedSearchSearchRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => UnifiedSearchSearch200ResponseFromJSON(jsonValue));
@@ -175,7 +156,7 @@ export class UnifiedSearchApi extends runtime.BaseAPI {
      * Additional filters are available for each provider. Send a request to /providers endpoint to list providers with their available filters.
      * Launch a search for a specific search provider.
      */
-    async unifiedSearchSearch(requestParameters: UnifiedSearchSearchRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UnifiedSearchSearch200Response> {
+    async unifiedSearchSearch(requestParameters: UnifiedSearchSearchOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UnifiedSearchSearch200Response> {
         const response = await this.unifiedSearchSearchRaw(requestParameters, initOverrides);
         return await response.value();
     }

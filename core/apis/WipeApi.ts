@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -16,18 +16,21 @@
 import * as runtime from '../runtime.ts';
 import type {
   WipeCheckWipe200Response,
+  WipeCheckWipeRequest,
 } from '../models/index.ts';
 import {
     WipeCheckWipe200ResponseFromJSON,
     WipeCheckWipe200ResponseToJSON,
+    WipeCheckWipeRequestFromJSON,
+    WipeCheckWipeRequestToJSON,
 } from '../models/index.ts';
 
-export interface WipeCheckWipeRequest {
-    token: string;
+export interface WipeCheckWipeOperationRequest {
+    wipeCheckWipeRequest: WipeCheckWipeRequest;
 }
 
 export interface WipeWipeDoneRequest {
-    token: string;
+    wipeCheckWipeRequest: WipeCheckWipeRequest;
 }
 
 /**
@@ -38,21 +41,19 @@ export class WipeApi extends runtime.BaseAPI {
     /**
      * Check if the device should be wiped
      */
-    async wipeCheckWipeRaw(requestParameters: WipeCheckWipeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WipeCheckWipe200Response>> {
-        if (requestParameters['token'] == null) {
+    async wipeCheckWipeRaw(requestParameters: WipeCheckWipeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<WipeCheckWipe200Response>> {
+        if (requestParameters['wipeCheckWipeRequest'] == null) {
             throw new runtime.RequiredError(
-                'token',
-                'Required parameter "token" was null or undefined when calling wipeCheckWipe().'
+                'wipeCheckWipeRequest',
+                'Required parameter "wipeCheckWipeRequest" was null or undefined when calling wipeCheckWipe().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['token'] != null) {
-            queryParameters['token'] = requestParameters['token'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
@@ -70,6 +71,7 @@ export class WipeApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: WipeCheckWipeRequestToJSON(requestParameters['wipeCheckWipeRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => WipeCheckWipe200ResponseFromJSON(jsonValue));
@@ -78,7 +80,7 @@ export class WipeApi extends runtime.BaseAPI {
     /**
      * Check if the device should be wiped
      */
-    async wipeCheckWipe(requestParameters: WipeCheckWipeRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WipeCheckWipe200Response> {
+    async wipeCheckWipe(requestParameters: WipeCheckWipeOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<WipeCheckWipe200Response> {
         const response = await this.wipeCheckWipeRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -87,20 +89,18 @@ export class WipeApi extends runtime.BaseAPI {
      * Finish the wipe
      */
     async wipeWipeDoneRaw(requestParameters: WipeWipeDoneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
-        if (requestParameters['token'] == null) {
+        if (requestParameters['wipeCheckWipeRequest'] == null) {
             throw new runtime.RequiredError(
-                'token',
-                'Required parameter "token" was null or undefined when calling wipeWipeDone().'
+                'wipeCheckWipeRequest',
+                'Required parameter "wipeCheckWipeRequest" was null or undefined when calling wipeWipeDone().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['token'] != null) {
-            queryParameters['token'] = requestParameters['token'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
@@ -118,6 +118,7 @@ export class WipeApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: WipeCheckWipeRequestToJSON(requestParameters['wipeCheckWipeRequest']),
         }, initOverrides);
 
         if (this.isJsonMime(response.headers.get('content-type'))) {

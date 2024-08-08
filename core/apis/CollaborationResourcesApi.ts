@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -16,30 +16,38 @@
 import * as runtime from '../runtime.ts';
 import type {
   AppPasswordGetAppPassword403Response,
+  CollaborationResourcesAddResourceRequest,
+  CollaborationResourcesCreateCollectionOnResourceRequest,
   CollaborationResourcesListCollection200Response,
+  CollaborationResourcesRenameCollectionRequest,
   CollaborationResourcesSearchCollections200Response,
 } from '../models/index.ts';
 import {
     AppPasswordGetAppPassword403ResponseFromJSON,
     AppPasswordGetAppPassword403ResponseToJSON,
+    CollaborationResourcesAddResourceRequestFromJSON,
+    CollaborationResourcesAddResourceRequestToJSON,
+    CollaborationResourcesCreateCollectionOnResourceRequestFromJSON,
+    CollaborationResourcesCreateCollectionOnResourceRequestToJSON,
     CollaborationResourcesListCollection200ResponseFromJSON,
     CollaborationResourcesListCollection200ResponseToJSON,
+    CollaborationResourcesRenameCollectionRequestFromJSON,
+    CollaborationResourcesRenameCollectionRequestToJSON,
     CollaborationResourcesSearchCollections200ResponseFromJSON,
     CollaborationResourcesSearchCollections200ResponseToJSON,
 } from '../models/index.ts';
 
-export interface CollaborationResourcesAddResourceRequest {
-    resourceType: string;
-    resourceId: string;
+export interface CollaborationResourcesAddResourceOperationRequest {
     collectionId: number;
     oCSAPIRequest: boolean;
+    collaborationResourcesAddResourceRequest: CollaborationResourcesAddResourceRequest;
 }
 
-export interface CollaborationResourcesCreateCollectionOnResourceRequest {
-    name: string;
+export interface CollaborationResourcesCreateCollectionOnResourceOperationRequest {
     baseResourceType: string;
     baseResourceId: string;
     oCSAPIRequest: boolean;
+    collaborationResourcesCreateCollectionOnResourceRequest: CollaborationResourcesCreateCollectionOnResourceRequest;
 }
 
 export interface CollaborationResourcesGetCollectionsByResourceRequest {
@@ -54,16 +62,15 @@ export interface CollaborationResourcesListCollectionRequest {
 }
 
 export interface CollaborationResourcesRemoveResourceRequest {
-    resourceType: string;
-    resourceId: string;
     collectionId: number;
     oCSAPIRequest: boolean;
+    collaborationResourcesAddResourceRequest: CollaborationResourcesAddResourceRequest;
 }
 
-export interface CollaborationResourcesRenameCollectionRequest {
-    collectionName: string;
+export interface CollaborationResourcesRenameCollectionOperationRequest {
     collectionId: number;
     oCSAPIRequest: boolean;
+    collaborationResourcesRenameCollectionRequest: CollaborationResourcesRenameCollectionRequest;
 }
 
 export interface CollaborationResourcesSearchCollectionsRequest {
@@ -79,21 +86,7 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
     /**
      * Add a resource to a collection
      */
-    async collaborationResourcesAddResourceRaw(requestParameters: CollaborationResourcesAddResourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CollaborationResourcesListCollection200Response>> {
-        if (requestParameters['resourceType'] == null) {
-            throw new runtime.RequiredError(
-                'resourceType',
-                'Required parameter "resourceType" was null or undefined when calling collaborationResourcesAddResource().'
-            );
-        }
-
-        if (requestParameters['resourceId'] == null) {
-            throw new runtime.RequiredError(
-                'resourceId',
-                'Required parameter "resourceId" was null or undefined when calling collaborationResourcesAddResource().'
-            );
-        }
-
+    async collaborationResourcesAddResourceRaw(requestParameters: CollaborationResourcesAddResourceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CollaborationResourcesListCollection200Response>> {
         if (requestParameters['collectionId'] == null) {
             throw new runtime.RequiredError(
                 'collectionId',
@@ -108,17 +101,18 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
             );
         }
 
+        if (requestParameters['collaborationResourcesAddResourceRequest'] == null) {
+            throw new runtime.RequiredError(
+                'collaborationResourcesAddResourceRequest',
+                'Required parameter "collaborationResourcesAddResourceRequest" was null or undefined when calling collaborationResourcesAddResource().'
+            );
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters['resourceType'] != null) {
-            queryParameters['resourceType'] = requestParameters['resourceType'];
-        }
-
-        if (requestParameters['resourceId'] != null) {
-            queryParameters['resourceId'] = requestParameters['resourceId'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -140,6 +134,7 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: CollaborationResourcesAddResourceRequestToJSON(requestParameters['collaborationResourcesAddResourceRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CollaborationResourcesListCollection200ResponseFromJSON(jsonValue));
@@ -148,7 +143,7 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
     /**
      * Add a resource to a collection
      */
-    async collaborationResourcesAddResource(requestParameters: CollaborationResourcesAddResourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CollaborationResourcesListCollection200Response> {
+    async collaborationResourcesAddResource(requestParameters: CollaborationResourcesAddResourceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CollaborationResourcesListCollection200Response> {
         const response = await this.collaborationResourcesAddResourceRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -156,14 +151,7 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
     /**
      * Create a collection for a resource
      */
-    async collaborationResourcesCreateCollectionOnResourceRaw(requestParameters: CollaborationResourcesCreateCollectionOnResourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CollaborationResourcesListCollection200Response>> {
-        if (requestParameters['name'] == null) {
-            throw new runtime.RequiredError(
-                'name',
-                'Required parameter "name" was null or undefined when calling collaborationResourcesCreateCollectionOnResource().'
-            );
-        }
-
+    async collaborationResourcesCreateCollectionOnResourceRaw(requestParameters: CollaborationResourcesCreateCollectionOnResourceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CollaborationResourcesListCollection200Response>> {
         if (requestParameters['baseResourceType'] == null) {
             throw new runtime.RequiredError(
                 'baseResourceType',
@@ -185,13 +173,18 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
             );
         }
 
-        const queryParameters: any = {};
-
-        if (requestParameters['name'] != null) {
-            queryParameters['name'] = requestParameters['name'];
+        if (requestParameters['collaborationResourcesCreateCollectionOnResourceRequest'] == null) {
+            throw new runtime.RequiredError(
+                'collaborationResourcesCreateCollectionOnResourceRequest',
+                'Required parameter "collaborationResourcesCreateCollectionOnResourceRequest" was null or undefined when calling collaborationResourcesCreateCollectionOnResource().'
+            );
         }
 
+        const queryParameters: any = {};
+
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -213,6 +206,7 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: CollaborationResourcesCreateCollectionOnResourceRequestToJSON(requestParameters['collaborationResourcesCreateCollectionOnResourceRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CollaborationResourcesListCollection200ResponseFromJSON(jsonValue));
@@ -221,7 +215,7 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
     /**
      * Create a collection for a resource
      */
-    async collaborationResourcesCreateCollectionOnResource(requestParameters: CollaborationResourcesCreateCollectionOnResourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CollaborationResourcesListCollection200Response> {
+    async collaborationResourcesCreateCollectionOnResource(requestParameters: CollaborationResourcesCreateCollectionOnResourceOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CollaborationResourcesListCollection200Response> {
         const response = await this.collaborationResourcesCreateCollectionOnResourceRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -347,20 +341,6 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
      * Remove a resource from a collection
      */
     async collaborationResourcesRemoveResourceRaw(requestParameters: CollaborationResourcesRemoveResourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CollaborationResourcesListCollection200Response>> {
-        if (requestParameters['resourceType'] == null) {
-            throw new runtime.RequiredError(
-                'resourceType',
-                'Required parameter "resourceType" was null or undefined when calling collaborationResourcesRemoveResource().'
-            );
-        }
-
-        if (requestParameters['resourceId'] == null) {
-            throw new runtime.RequiredError(
-                'resourceId',
-                'Required parameter "resourceId" was null or undefined when calling collaborationResourcesRemoveResource().'
-            );
-        }
-
         if (requestParameters['collectionId'] == null) {
             throw new runtime.RequiredError(
                 'collectionId',
@@ -375,17 +355,18 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
             );
         }
 
+        if (requestParameters['collaborationResourcesAddResourceRequest'] == null) {
+            throw new runtime.RequiredError(
+                'collaborationResourcesAddResourceRequest',
+                'Required parameter "collaborationResourcesAddResourceRequest" was null or undefined when calling collaborationResourcesRemoveResource().'
+            );
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters['resourceType'] != null) {
-            queryParameters['resourceType'] = requestParameters['resourceType'];
-        }
-
-        if (requestParameters['resourceId'] != null) {
-            queryParameters['resourceId'] = requestParameters['resourceId'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -407,6 +388,7 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
+            body: CollaborationResourcesAddResourceRequestToJSON(requestParameters['collaborationResourcesAddResourceRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CollaborationResourcesListCollection200ResponseFromJSON(jsonValue));
@@ -423,14 +405,7 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
     /**
      * Rename a collection
      */
-    async collaborationResourcesRenameCollectionRaw(requestParameters: CollaborationResourcesRenameCollectionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CollaborationResourcesListCollection200Response>> {
-        if (requestParameters['collectionName'] == null) {
-            throw new runtime.RequiredError(
-                'collectionName',
-                'Required parameter "collectionName" was null or undefined when calling collaborationResourcesRenameCollection().'
-            );
-        }
-
+    async collaborationResourcesRenameCollectionRaw(requestParameters: CollaborationResourcesRenameCollectionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CollaborationResourcesListCollection200Response>> {
         if (requestParameters['collectionId'] == null) {
             throw new runtime.RequiredError(
                 'collectionId',
@@ -445,13 +420,18 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
             );
         }
 
-        const queryParameters: any = {};
-
-        if (requestParameters['collectionName'] != null) {
-            queryParameters['collectionName'] = requestParameters['collectionName'];
+        if (requestParameters['collaborationResourcesRenameCollectionRequest'] == null) {
+            throw new runtime.RequiredError(
+                'collaborationResourcesRenameCollectionRequest',
+                'Required parameter "collaborationResourcesRenameCollectionRequest" was null or undefined when calling collaborationResourcesRenameCollection().'
+            );
         }
 
+        const queryParameters: any = {};
+
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -473,6 +453,7 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
+            body: CollaborationResourcesRenameCollectionRequestToJSON(requestParameters['collaborationResourcesRenameCollectionRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CollaborationResourcesListCollection200ResponseFromJSON(jsonValue));
@@ -481,7 +462,7 @@ export class CollaborationResourcesApi extends runtime.BaseAPI {
     /**
      * Rename a collection
      */
-    async collaborationResourcesRenameCollection(requestParameters: CollaborationResourcesRenameCollectionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CollaborationResourcesListCollection200Response> {
+    async collaborationResourcesRenameCollection(requestParameters: CollaborationResourcesRenameCollectionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CollaborationResourcesListCollection200Response> {
         const response = await this.collaborationResourcesRenameCollectionRaw(requestParameters, initOverrides);
         return await response.value();
     }

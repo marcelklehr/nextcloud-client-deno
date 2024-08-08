@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -13,17 +13,17 @@
  */
 
 /**
- * @type NavigationEntryOrder
+ * @type UnifiedSearchResultCursor
  * 
  * @export
  */
-export type NavigationEntryOrder = number | string;
+export type UnifiedSearchResultCursor = number | string;
 
-export function NavigationEntryOrderFromJSON(json: any): NavigationEntryOrder {
-    return NavigationEntryOrderFromJSONTyped(json, false);
+export function UnifiedSearchResultCursorFromJSON(json: any): UnifiedSearchResultCursor {
+    return UnifiedSearchResultCursorFromJSONTyped(json, false);
 }
 
-export function NavigationEntryOrderFromJSONTyped(json: any, ignoreDiscriminator: boolean): NavigationEntryOrder {
+export function UnifiedSearchResultCursorFromJSONTyped(json: any, ignoreDiscriminator: boolean): UnifiedSearchResultCursor {
     if (json == null) {
         return json;
     }
@@ -35,7 +35,7 @@ export function NavigationEntryOrderFromJSONTyped(json: any, ignoreDiscriminator
     }
 }
 
-export function NavigationEntryOrderToJSON(value?: NavigationEntryOrder | null): any {
+export function UnifiedSearchResultCursorToJSON(value?: UnifiedSearchResultCursor | null): any {
     if (value == null) {
         return value;
     }

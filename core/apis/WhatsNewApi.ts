@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -16,18 +16,21 @@
 import * as runtime from '../runtime.ts';
 import type {
   AppPasswordGetAppPassword403Response,
+  WhatsNewDismissRequest,
   WhatsNewGet200Response,
 } from '../models/index.ts';
 import {
     AppPasswordGetAppPassword403ResponseFromJSON,
     AppPasswordGetAppPassword403ResponseToJSON,
+    WhatsNewDismissRequestFromJSON,
+    WhatsNewDismissRequestToJSON,
     WhatsNewGet200ResponseFromJSON,
     WhatsNewGet200ResponseToJSON,
 } from '../models/index.ts';
 
-export interface WhatsNewDismissRequest {
-    version: string;
+export interface WhatsNewDismissOperationRequest {
     oCSAPIRequest: boolean;
+    whatsNewDismissRequest: WhatsNewDismissRequest;
 }
 
 export interface WhatsNewGetRequest {
@@ -42,14 +45,7 @@ export class WhatsNewApi extends runtime.BaseAPI {
     /**
      * Dismiss the changes
      */
-    async whatsNewDismissRaw(requestParameters: WhatsNewDismissRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppPasswordGetAppPassword403Response>> {
-        if (requestParameters['version'] == null) {
-            throw new runtime.RequiredError(
-                'version',
-                'Required parameter "version" was null or undefined when calling whatsNewDismiss().'
-            );
-        }
-
+    async whatsNewDismissRaw(requestParameters: WhatsNewDismissOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppPasswordGetAppPassword403Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
@@ -57,13 +53,18 @@ export class WhatsNewApi extends runtime.BaseAPI {
             );
         }
 
-        const queryParameters: any = {};
-
-        if (requestParameters['version'] != null) {
-            queryParameters['version'] = requestParameters['version'];
+        if (requestParameters['whatsNewDismissRequest'] == null) {
+            throw new runtime.RequiredError(
+                'whatsNewDismissRequest',
+                'Required parameter "whatsNewDismissRequest" was null or undefined when calling whatsNewDismiss().'
+            );
         }
 
+        const queryParameters: any = {};
+
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -85,6 +86,7 @@ export class WhatsNewApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: WhatsNewDismissRequestToJSON(requestParameters['whatsNewDismissRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppPasswordGetAppPassword403ResponseFromJSON(jsonValue));
@@ -93,7 +95,7 @@ export class WhatsNewApi extends runtime.BaseAPI {
     /**
      * Dismiss the changes
      */
-    async whatsNewDismiss(requestParameters: WhatsNewDismissRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppPasswordGetAppPassword403Response> {
+    async whatsNewDismiss(requestParameters: WhatsNewDismissOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppPasswordGetAppPassword403Response> {
         const response = await this.whatsNewDismissRaw(requestParameters, initOverrides);
         return await response.value();
     }

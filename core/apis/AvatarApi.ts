@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -14,15 +14,24 @@
 
 
 import * as runtime from '../runtime.ts';
+import type {
+  AvatarGetAvatarDarkRequest,
+} from '../models/index.ts';
+import {
+    AvatarGetAvatarDarkRequestFromJSON,
+    AvatarGetAvatarDarkRequestToJSON,
+} from '../models/index.ts';
 
 export interface AvatarGetAvatarRequest {
     userId: string;
     size: number;
+    avatarGetAvatarDarkRequest?: AvatarGetAvatarDarkRequest;
 }
 
-export interface AvatarGetAvatarDarkRequest {
+export interface AvatarGetAvatarDarkOperationRequest {
     userId: string;
     size: number;
+    avatarGetAvatarDarkRequest?: AvatarGetAvatarDarkRequest;
 }
 
 /**
@@ -52,6 +61,8 @@ export class AvatarApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        headerParameters['Content-Type'] = 'application/json';
+
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
         }
@@ -68,6 +79,7 @@ export class AvatarApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: AvatarGetAvatarDarkRequestToJSON(requestParameters['avatarGetAvatarDarkRequest']),
         }, initOverrides);
 
         return new runtime.BlobApiResponse(response);
@@ -84,7 +96,7 @@ export class AvatarApi extends runtime.BaseAPI {
     /**
      * Get the dark avatar
      */
-    async avatarGetAvatarDarkRaw(requestParameters: AvatarGetAvatarDarkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async avatarGetAvatarDarkRaw(requestParameters: AvatarGetAvatarDarkOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
         if (requestParameters['userId'] == null) {
             throw new runtime.RequiredError(
                 'userId',
@@ -103,6 +115,8 @@ export class AvatarApi extends runtime.BaseAPI {
 
         const headerParameters: runtime.HTTPHeaders = {};
 
+        headerParameters['Content-Type'] = 'application/json';
+
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
         }
@@ -119,6 +133,7 @@ export class AvatarApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: AvatarGetAvatarDarkRequestToJSON(requestParameters['avatarGetAvatarDarkRequest']),
         }, initOverrides);
 
         return new runtime.BlobApiResponse(response);
@@ -127,7 +142,7 @@ export class AvatarApi extends runtime.BaseAPI {
     /**
      * Get the dark avatar
      */
-    async avatarGetAvatarDark(requestParameters: AvatarGetAvatarDarkRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+    async avatarGetAvatarDark(requestParameters: AvatarGetAvatarDarkOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
         const response = await this.avatarGetAvatarDarkRaw(requestParameters, initOverrides);
         return await response.value();
     }

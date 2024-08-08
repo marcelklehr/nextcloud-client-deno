@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -13,6 +13,18 @@
  */
 
 import { mapValues } from '../runtime.ts';
+import type { TaskProcessingTaskTypeInputShapeDefaultsValue } from './TaskProcessingTaskTypeInputShapeDefaultsValue.ts';
+import {
+    TaskProcessingTaskTypeInputShapeDefaultsValueFromJSON,
+    TaskProcessingTaskTypeInputShapeDefaultsValueFromJSONTyped,
+    TaskProcessingTaskTypeInputShapeDefaultsValueToJSON,
+} from './TaskProcessingTaskTypeInputShapeDefaultsValue.ts';
+import type { TaskProcessingTaskTypeInputShapeEnumValuesInnerInner } from './TaskProcessingTaskTypeInputShapeEnumValuesInnerInner.ts';
+import {
+    TaskProcessingTaskTypeInputShapeEnumValuesInnerInnerFromJSON,
+    TaskProcessingTaskTypeInputShapeEnumValuesInnerInnerFromJSONTyped,
+    TaskProcessingTaskTypeInputShapeEnumValuesInnerInnerToJSON,
+} from './TaskProcessingTaskTypeInputShapeEnumValuesInnerInner.ts';
 import type { TaskProcessingShape } from './TaskProcessingShape.ts';
 import {
     TaskProcessingShapeFromJSON,
@@ -46,10 +58,58 @@ export interface TaskProcessingTaskType {
     inputShape: Array<TaskProcessingShape>;
     /**
      * 
+     * @type {Array<Array<TaskProcessingTaskTypeInputShapeEnumValuesInnerInner>>}
+     * @memberof TaskProcessingTaskType
+     */
+    inputShapeEnumValues: Array<Array<TaskProcessingTaskTypeInputShapeEnumValuesInnerInner>>;
+    /**
+     * 
+     * @type {{ [key: string]: TaskProcessingTaskTypeInputShapeDefaultsValue; }}
+     * @memberof TaskProcessingTaskType
+     */
+    inputShapeDefaults: { [key: string]: TaskProcessingTaskTypeInputShapeDefaultsValue; };
+    /**
+     * 
+     * @type {Array<TaskProcessingShape>}
+     * @memberof TaskProcessingTaskType
+     */
+    optionalInputShape: Array<TaskProcessingShape>;
+    /**
+     * 
+     * @type {Array<Array<TaskProcessingTaskTypeInputShapeEnumValuesInnerInner>>}
+     * @memberof TaskProcessingTaskType
+     */
+    optionalInputShapeEnumValues: Array<Array<TaskProcessingTaskTypeInputShapeEnumValuesInnerInner>>;
+    /**
+     * 
+     * @type {{ [key: string]: TaskProcessingTaskTypeInputShapeDefaultsValue; }}
+     * @memberof TaskProcessingTaskType
+     */
+    optionalInputShapeDefaults: { [key: string]: TaskProcessingTaskTypeInputShapeDefaultsValue; };
+    /**
+     * 
      * @type {Array<TaskProcessingShape>}
      * @memberof TaskProcessingTaskType
      */
     outputShape: Array<TaskProcessingShape>;
+    /**
+     * 
+     * @type {Array<Array<TaskProcessingTaskTypeInputShapeEnumValuesInnerInner>>}
+     * @memberof TaskProcessingTaskType
+     */
+    outputShapeEnumValues: Array<Array<TaskProcessingTaskTypeInputShapeEnumValuesInnerInner>>;
+    /**
+     * 
+     * @type {Array<TaskProcessingShape>}
+     * @memberof TaskProcessingTaskType
+     */
+    optionalOutputShape: Array<TaskProcessingShape>;
+    /**
+     * 
+     * @type {Array<Array<TaskProcessingTaskTypeInputShapeEnumValuesInnerInner>>}
+     * @memberof TaskProcessingTaskType
+     */
+    optionalOutputShapeEnumValues: Array<Array<TaskProcessingTaskTypeInputShapeEnumValuesInnerInner>>;
 }
 
 /**
@@ -59,7 +119,15 @@ export function instanceOfTaskProcessingTaskType(value: object): value is TaskPr
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('description' in value) || value['description'] === undefined) return false;
     if (!('inputShape' in value) || value['inputShape'] === undefined) return false;
+    if (!('inputShapeEnumValues' in value) || value['inputShapeEnumValues'] === undefined) return false;
+    if (!('inputShapeDefaults' in value) || value['inputShapeDefaults'] === undefined) return false;
+    if (!('optionalInputShape' in value) || value['optionalInputShape'] === undefined) return false;
+    if (!('optionalInputShapeEnumValues' in value) || value['optionalInputShapeEnumValues'] === undefined) return false;
+    if (!('optionalInputShapeDefaults' in value) || value['optionalInputShapeDefaults'] === undefined) return false;
     if (!('outputShape' in value) || value['outputShape'] === undefined) return false;
+    if (!('outputShapeEnumValues' in value) || value['outputShapeEnumValues'] === undefined) return false;
+    if (!('optionalOutputShape' in value) || value['optionalOutputShape'] === undefined) return false;
+    if (!('optionalOutputShapeEnumValues' in value) || value['optionalOutputShapeEnumValues'] === undefined) return false;
     return true;
 }
 
@@ -76,7 +144,15 @@ export function TaskProcessingTaskTypeFromJSONTyped(json: any, ignoreDiscriminat
         'name': json['name'],
         'description': json['description'],
         'inputShape': ((json['inputShape'] as Array<any>).map(TaskProcessingShapeFromJSON)),
+        'inputShapeEnumValues': json['inputShapeEnumValues'],
+        'inputShapeDefaults': (mapValues(json['inputShapeDefaults'], TaskProcessingTaskTypeInputShapeDefaultsValueFromJSON)),
+        'optionalInputShape': ((json['optionalInputShape'] as Array<any>).map(TaskProcessingShapeFromJSON)),
+        'optionalInputShapeEnumValues': json['optionalInputShapeEnumValues'],
+        'optionalInputShapeDefaults': (mapValues(json['optionalInputShapeDefaults'], TaskProcessingTaskTypeInputShapeDefaultsValueFromJSON)),
         'outputShape': ((json['outputShape'] as Array<any>).map(TaskProcessingShapeFromJSON)),
+        'outputShapeEnumValues': json['outputShapeEnumValues'],
+        'optionalOutputShape': ((json['optionalOutputShape'] as Array<any>).map(TaskProcessingShapeFromJSON)),
+        'optionalOutputShapeEnumValues': json['optionalOutputShapeEnumValues'],
     };
 }
 
@@ -89,7 +165,15 @@ export function TaskProcessingTaskTypeToJSON(value?: TaskProcessingTaskType | nu
         'name': value['name'],
         'description': value['description'],
         'inputShape': ((value['inputShape'] as Array<any>).map(TaskProcessingShapeToJSON)),
+        'inputShapeEnumValues': value['inputShapeEnumValues'],
+        'inputShapeDefaults': (mapValues(value['inputShapeDefaults'], TaskProcessingTaskTypeInputShapeDefaultsValueToJSON)),
+        'optionalInputShape': ((value['optionalInputShape'] as Array<any>).map(TaskProcessingShapeToJSON)),
+        'optionalInputShapeEnumValues': value['optionalInputShapeEnumValues'],
+        'optionalInputShapeDefaults': (mapValues(value['optionalInputShapeDefaults'], TaskProcessingTaskTypeInputShapeDefaultsValueToJSON)),
         'outputShape': ((value['outputShape'] as Array<any>).map(TaskProcessingShapeToJSON)),
+        'outputShapeEnumValues': value['outputShapeEnumValues'],
+        'optionalOutputShape': ((value['optionalOutputShape'] as Array<any>).map(TaskProcessingShapeToJSON)),
+        'optionalOutputShapeEnumValues': value['optionalOutputShapeEnumValues'],
     };
 }
 

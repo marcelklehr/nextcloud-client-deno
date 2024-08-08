@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -17,7 +17,9 @@ import * as runtime from '../runtime.ts';
 import type {
   TaskProcessingApiSchedule500Response,
   TextProcessingApiListTasksByApp200Response,
+  TextProcessingApiListTasksByAppRequest,
   TextProcessingApiSchedule200Response,
+  TextProcessingApiScheduleRequest,
   TextProcessingApiTaskTypes200Response,
 } from '../models/index.ts';
 import {
@@ -25,8 +27,12 @@ import {
     TaskProcessingApiSchedule500ResponseToJSON,
     TextProcessingApiListTasksByApp200ResponseFromJSON,
     TextProcessingApiListTasksByApp200ResponseToJSON,
+    TextProcessingApiListTasksByAppRequestFromJSON,
+    TextProcessingApiListTasksByAppRequestToJSON,
     TextProcessingApiSchedule200ResponseFromJSON,
     TextProcessingApiSchedule200ResponseToJSON,
+    TextProcessingApiScheduleRequestFromJSON,
+    TextProcessingApiScheduleRequestToJSON,
     TextProcessingApiTaskTypes200ResponseFromJSON,
     TextProcessingApiTaskTypes200ResponseToJSON,
 } from '../models/index.ts';
@@ -41,18 +47,15 @@ export interface TextProcessingApiGetTaskRequest {
     oCSAPIRequest: boolean;
 }
 
-export interface TextProcessingApiListTasksByAppRequest {
+export interface TextProcessingApiListTasksByAppOperationRequest {
     appId: string;
     oCSAPIRequest: boolean;
-    identifier?: string;
+    textProcessingApiListTasksByAppRequest?: TextProcessingApiListTasksByAppRequest;
 }
 
-export interface TextProcessingApiScheduleRequest {
-    input: string;
-    type: string;
-    appId: string;
+export interface TextProcessingApiScheduleOperationRequest {
     oCSAPIRequest: boolean;
-    identifier?: string;
+    textProcessingApiScheduleRequest: TextProcessingApiScheduleRequest;
 }
 
 export interface TextProcessingApiTaskTypesRequest {
@@ -177,7 +180,7 @@ export class TextProcessingApiApi extends runtime.BaseAPI {
     /**
      * This endpoint returns a list of tasks of a user that are related with a specific appId and optionally with an identifier
      */
-    async textProcessingApiListTasksByAppRaw(requestParameters: TextProcessingApiListTasksByAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TextProcessingApiListTasksByApp200Response>> {
+    async textProcessingApiListTasksByAppRaw(requestParameters: TextProcessingApiListTasksByAppOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TextProcessingApiListTasksByApp200Response>> {
         if (requestParameters['appId'] == null) {
             throw new runtime.RequiredError(
                 'appId',
@@ -194,11 +197,9 @@ export class TextProcessingApiApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['identifier'] != null) {
-            queryParameters['identifier'] = requestParameters['identifier'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -220,6 +221,7 @@ export class TextProcessingApiApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: TextProcessingApiListTasksByAppRequestToJSON(requestParameters['textProcessingApiListTasksByAppRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TextProcessingApiListTasksByApp200ResponseFromJSON(jsonValue));
@@ -228,7 +230,7 @@ export class TextProcessingApiApi extends runtime.BaseAPI {
     /**
      * This endpoint returns a list of tasks of a user that are related with a specific appId and optionally with an identifier
      */
-    async textProcessingApiListTasksByApp(requestParameters: TextProcessingApiListTasksByAppRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TextProcessingApiListTasksByApp200Response> {
+    async textProcessingApiListTasksByApp(requestParameters: TextProcessingApiListTasksByAppOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TextProcessingApiListTasksByApp200Response> {
         const response = await this.textProcessingApiListTasksByAppRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -236,28 +238,7 @@ export class TextProcessingApiApi extends runtime.BaseAPI {
     /**
      * This endpoint allows scheduling a language model task
      */
-    async textProcessingApiScheduleRaw(requestParameters: TextProcessingApiScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TextProcessingApiSchedule200Response>> {
-        if (requestParameters['input'] == null) {
-            throw new runtime.RequiredError(
-                'input',
-                'Required parameter "input" was null or undefined when calling textProcessingApiSchedule().'
-            );
-        }
-
-        if (requestParameters['type'] == null) {
-            throw new runtime.RequiredError(
-                'type',
-                'Required parameter "type" was null or undefined when calling textProcessingApiSchedule().'
-            );
-        }
-
-        if (requestParameters['appId'] == null) {
-            throw new runtime.RequiredError(
-                'appId',
-                'Required parameter "appId" was null or undefined when calling textProcessingApiSchedule().'
-            );
-        }
-
+    async textProcessingApiScheduleRaw(requestParameters: TextProcessingApiScheduleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TextProcessingApiSchedule200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
@@ -265,25 +246,18 @@ export class TextProcessingApiApi extends runtime.BaseAPI {
             );
         }
 
+        if (requestParameters['textProcessingApiScheduleRequest'] == null) {
+            throw new runtime.RequiredError(
+                'textProcessingApiScheduleRequest',
+                'Required parameter "textProcessingApiScheduleRequest" was null or undefined when calling textProcessingApiSchedule().'
+            );
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters['input'] != null) {
-            queryParameters['input'] = requestParameters['input'];
-        }
-
-        if (requestParameters['type'] != null) {
-            queryParameters['type'] = requestParameters['type'];
-        }
-
-        if (requestParameters['appId'] != null) {
-            queryParameters['appId'] = requestParameters['appId'];
-        }
-
-        if (requestParameters['identifier'] != null) {
-            queryParameters['identifier'] = requestParameters['identifier'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -305,6 +279,7 @@ export class TextProcessingApiApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: TextProcessingApiScheduleRequestToJSON(requestParameters['textProcessingApiScheduleRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TextProcessingApiSchedule200ResponseFromJSON(jsonValue));
@@ -313,7 +288,7 @@ export class TextProcessingApiApi extends runtime.BaseAPI {
     /**
      * This endpoint allows scheduling a language model task
      */
-    async textProcessingApiSchedule(requestParameters: TextProcessingApiScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TextProcessingApiSchedule200Response> {
+    async textProcessingApiSchedule(requestParameters: TextProcessingApiScheduleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TextProcessingApiSchedule200Response> {
         const response = await this.textProcessingApiScheduleRaw(requestParameters, initOverrides);
         return await response.value();
     }

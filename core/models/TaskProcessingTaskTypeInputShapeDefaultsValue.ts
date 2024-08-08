@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -13,17 +13,17 @@
  */
 
 /**
- * @type UnifiedSearchSearchCursorParameter
+ * @type TaskProcessingTaskTypeInputShapeDefaultsValue
  * 
  * @export
  */
-export type UnifiedSearchSearchCursorParameter = number | string;
+export type TaskProcessingTaskTypeInputShapeDefaultsValue = number | string;
 
-export function UnifiedSearchSearchCursorParameterFromJSON(json: any): UnifiedSearchSearchCursorParameter {
-    return UnifiedSearchSearchCursorParameterFromJSONTyped(json, false);
+export function TaskProcessingTaskTypeInputShapeDefaultsValueFromJSON(json: any): TaskProcessingTaskTypeInputShapeDefaultsValue {
+    return TaskProcessingTaskTypeInputShapeDefaultsValueFromJSONTyped(json, false);
 }
 
-export function UnifiedSearchSearchCursorParameterFromJSONTyped(json: any, ignoreDiscriminator: boolean): UnifiedSearchSearchCursorParameter {
+export function TaskProcessingTaskTypeInputShapeDefaultsValueFromJSONTyped(json: any, ignoreDiscriminator: boolean): TaskProcessingTaskTypeInputShapeDefaultsValue {
     if (json == null) {
         return json;
     }
@@ -35,7 +35,7 @@ export function UnifiedSearchSearchCursorParameterFromJSONTyped(json: any, ignor
     }
 }
 
-export function UnifiedSearchSearchCursorParameterToJSON(value?: UnifiedSearchSearchCursorParameter | null): any {
+export function TaskProcessingTaskTypeInputShapeDefaultsValueToJSON(value?: TaskProcessingTaskTypeInputShapeDefaultsValue | null): any {
     if (value == null) {
         return value;
     }

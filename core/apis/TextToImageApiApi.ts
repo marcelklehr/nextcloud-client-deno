@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -16,19 +16,25 @@
 import * as runtime from '../runtime.ts';
 import type {
   TaskProcessingApiSchedule500Response,
+  TextProcessingApiListTasksByAppRequest,
   TextToImageApiIsAvailable200Response,
   TextToImageApiListTasksByApp200Response,
   TextToImageApiSchedule200Response,
+  TextToImageApiScheduleRequest,
 } from '../models/index.ts';
 import {
     TaskProcessingApiSchedule500ResponseFromJSON,
     TaskProcessingApiSchedule500ResponseToJSON,
+    TextProcessingApiListTasksByAppRequestFromJSON,
+    TextProcessingApiListTasksByAppRequestToJSON,
     TextToImageApiIsAvailable200ResponseFromJSON,
     TextToImageApiIsAvailable200ResponseToJSON,
     TextToImageApiListTasksByApp200ResponseFromJSON,
     TextToImageApiListTasksByApp200ResponseToJSON,
     TextToImageApiSchedule200ResponseFromJSON,
     TextToImageApiSchedule200ResponseToJSON,
+    TextToImageApiScheduleRequestFromJSON,
+    TextToImageApiScheduleRequestToJSON,
 } from '../models/index.ts';
 
 export interface TextToImageApiDeleteTaskRequest {
@@ -54,15 +60,12 @@ export interface TextToImageApiIsAvailableRequest {
 export interface TextToImageApiListTasksByAppRequest {
     appId: string;
     oCSAPIRequest: boolean;
-    identifier?: string;
+    textProcessingApiListTasksByAppRequest?: TextProcessingApiListTasksByAppRequest;
 }
 
-export interface TextToImageApiScheduleRequest {
-    input: string;
-    appId: string;
+export interface TextToImageApiScheduleOperationRequest {
     oCSAPIRequest: boolean;
-    identifier?: string;
-    numberOfImages?: number;
+    textToImageApiScheduleRequest: TextToImageApiScheduleRequest;
 }
 
 /**
@@ -310,11 +313,9 @@ export class TextToImageApiApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['identifier'] != null) {
-            queryParameters['identifier'] = requestParameters['identifier'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -336,6 +337,7 @@ export class TextToImageApiApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: TextProcessingApiListTasksByAppRequestToJSON(requestParameters['textProcessingApiListTasksByAppRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TextToImageApiListTasksByApp200ResponseFromJSON(jsonValue));
@@ -352,21 +354,7 @@ export class TextToImageApiApi extends runtime.BaseAPI {
     /**
      * This endpoint allows scheduling a text to image task
      */
-    async textToImageApiScheduleRaw(requestParameters: TextToImageApiScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TextToImageApiSchedule200Response>> {
-        if (requestParameters['input'] == null) {
-            throw new runtime.RequiredError(
-                'input',
-                'Required parameter "input" was null or undefined when calling textToImageApiSchedule().'
-            );
-        }
-
-        if (requestParameters['appId'] == null) {
-            throw new runtime.RequiredError(
-                'appId',
-                'Required parameter "appId" was null or undefined when calling textToImageApiSchedule().'
-            );
-        }
-
+    async textToImageApiScheduleRaw(requestParameters: TextToImageApiScheduleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TextToImageApiSchedule200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
@@ -374,25 +362,18 @@ export class TextToImageApiApi extends runtime.BaseAPI {
             );
         }
 
+        if (requestParameters['textToImageApiScheduleRequest'] == null) {
+            throw new runtime.RequiredError(
+                'textToImageApiScheduleRequest',
+                'Required parameter "textToImageApiScheduleRequest" was null or undefined when calling textToImageApiSchedule().'
+            );
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters['input'] != null) {
-            queryParameters['input'] = requestParameters['input'];
-        }
-
-        if (requestParameters['appId'] != null) {
-            queryParameters['appId'] = requestParameters['appId'];
-        }
-
-        if (requestParameters['identifier'] != null) {
-            queryParameters['identifier'] = requestParameters['identifier'];
-        }
-
-        if (requestParameters['numberOfImages'] != null) {
-            queryParameters['numberOfImages'] = requestParameters['numberOfImages'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -414,6 +395,7 @@ export class TextToImageApiApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: TextToImageApiScheduleRequestToJSON(requestParameters['textToImageApiScheduleRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TextToImageApiSchedule200ResponseFromJSON(jsonValue));
@@ -422,7 +404,7 @@ export class TextToImageApiApi extends runtime.BaseAPI {
     /**
      * This endpoint allows scheduling a text to image task
      */
-    async textToImageApiSchedule(requestParameters: TextToImageApiScheduleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TextToImageApiSchedule200Response> {
+    async textToImageApiSchedule(requestParameters: TextToImageApiScheduleOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TextToImageApiSchedule200Response> {
         const response = await this.textToImageApiScheduleRaw(requestParameters, initOverrides);
         return await response.value();
     }

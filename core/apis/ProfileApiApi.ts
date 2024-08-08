@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -16,17 +16,19 @@
 import * as runtime from '../runtime.ts';
 import type {
   AppPasswordGetAppPassword403Response,
+  ProfileApiSetVisibilityRequest,
 } from '../models/index.ts';
 import {
     AppPasswordGetAppPassword403ResponseFromJSON,
     AppPasswordGetAppPassword403ResponseToJSON,
+    ProfileApiSetVisibilityRequestFromJSON,
+    ProfileApiSetVisibilityRequestToJSON,
 } from '../models/index.ts';
 
-export interface ProfileApiSetVisibilityRequest {
-    paramId: string;
-    visibility: string;
+export interface ProfileApiSetVisibilityOperationRequest {
     targetUserId: string;
     oCSAPIRequest: boolean;
+    profileApiSetVisibilityRequest: ProfileApiSetVisibilityRequest;
 }
 
 /**
@@ -38,21 +40,7 @@ export class ProfileApiApi extends runtime.BaseAPI {
      * This endpoint requires password confirmation
      * Update the visibility of a parameter
      */
-    async profileApiSetVisibilityRaw(requestParameters: ProfileApiSetVisibilityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppPasswordGetAppPassword403Response>> {
-        if (requestParameters['paramId'] == null) {
-            throw new runtime.RequiredError(
-                'paramId',
-                'Required parameter "paramId" was null or undefined when calling profileApiSetVisibility().'
-            );
-        }
-
-        if (requestParameters['visibility'] == null) {
-            throw new runtime.RequiredError(
-                'visibility',
-                'Required parameter "visibility" was null or undefined when calling profileApiSetVisibility().'
-            );
-        }
-
+    async profileApiSetVisibilityRaw(requestParameters: ProfileApiSetVisibilityOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppPasswordGetAppPassword403Response>> {
         if (requestParameters['targetUserId'] == null) {
             throw new runtime.RequiredError(
                 'targetUserId',
@@ -67,17 +55,18 @@ export class ProfileApiApi extends runtime.BaseAPI {
             );
         }
 
+        if (requestParameters['profileApiSetVisibilityRequest'] == null) {
+            throw new runtime.RequiredError(
+                'profileApiSetVisibilityRequest',
+                'Required parameter "profileApiSetVisibilityRequest" was null or undefined when calling profileApiSetVisibility().'
+            );
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters['paramId'] != null) {
-            queryParameters['paramId'] = requestParameters['paramId'];
-        }
-
-        if (requestParameters['visibility'] != null) {
-            queryParameters['visibility'] = requestParameters['visibility'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -99,6 +88,7 @@ export class ProfileApiApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
+            body: ProfileApiSetVisibilityRequestToJSON(requestParameters['profileApiSetVisibilityRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppPasswordGetAppPassword403ResponseFromJSON(jsonValue));
@@ -108,7 +98,7 @@ export class ProfileApiApi extends runtime.BaseAPI {
      * This endpoint requires password confirmation
      * Update the visibility of a parameter
      */
-    async profileApiSetVisibility(requestParameters: ProfileApiSetVisibilityRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppPasswordGetAppPassword403Response> {
+    async profileApiSetVisibility(requestParameters: ProfileApiSetVisibilityOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AppPasswordGetAppPassword403Response> {
         const response = await this.profileApiSetVisibilityRaw(requestParameters, initOverrides);
         return await response.value();
     }

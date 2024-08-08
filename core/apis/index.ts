@@ -5,6 +5,7 @@ export * from './AutoCompleteApi.ts';
 export * from './AvatarApi.ts';
 export * from './ClientFlowLoginV2Api.ts';
 export * from './CollaborationResourcesApi.ts';
+export * from './CsrfTokenApi.ts';
 export * from './DefaultApi.ts';
 export * from './GuestAvatarApi.ts';
 export * from './HoverCardApi.ts';

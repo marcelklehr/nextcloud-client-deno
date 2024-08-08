@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -16,14 +16,17 @@
 import * as runtime from '../runtime.ts';
 import type {
   AppPasswordConfirmUserPassword200ResponseOcsData,
+  AppPasswordConfirmUserPasswordRequest,
 } from '../models/index.ts';
 import {
     AppPasswordConfirmUserPassword200ResponseOcsDataFromJSON,
     AppPasswordConfirmUserPassword200ResponseOcsDataToJSON,
+    AppPasswordConfirmUserPasswordRequestFromJSON,
+    AppPasswordConfirmUserPasswordRequestToJSON,
 } from '../models/index.ts';
 
 export interface LoginConfirmPasswordRequest {
-    password: string;
+    appPasswordConfirmUserPasswordRequest: AppPasswordConfirmUserPasswordRequest;
 }
 
 /**
@@ -35,20 +38,18 @@ export class LoginApi extends runtime.BaseAPI {
      * Confirm the user password
      */
     async loginConfirmPasswordRaw(requestParameters: LoginConfirmPasswordRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AppPasswordConfirmUserPassword200ResponseOcsData>> {
-        if (requestParameters['password'] == null) {
+        if (requestParameters['appPasswordConfirmUserPasswordRequest'] == null) {
             throw new runtime.RequiredError(
-                'password',
-                'Required parameter "password" was null or undefined when calling loginConfirmPassword().'
+                'appPasswordConfirmUserPasswordRequest',
+                'Required parameter "appPasswordConfirmUserPasswordRequest" was null or undefined when calling loginConfirmPassword().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['password'] != null) {
-            queryParameters['password'] = requestParameters['password'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
@@ -66,6 +67,7 @@ export class LoginApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: AppPasswordConfirmUserPasswordRequestToJSON(requestParameters['appPasswordConfirmUserPasswordRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AppPasswordConfirmUserPassword200ResponseOcsDataFromJSON(jsonValue));

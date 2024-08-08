@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -18,6 +18,7 @@ import type {
   TranslationApiLanguages200Response,
   TranslationApiTranslate200Response,
   TranslationApiTranslate400Response,
+  TranslationApiTranslateRequest,
 } from '../models/index.ts';
 import {
     TranslationApiLanguages200ResponseFromJSON,
@@ -26,17 +27,17 @@ import {
     TranslationApiTranslate200ResponseToJSON,
     TranslationApiTranslate400ResponseFromJSON,
     TranslationApiTranslate400ResponseToJSON,
+    TranslationApiTranslateRequestFromJSON,
+    TranslationApiTranslateRequestToJSON,
 } from '../models/index.ts';
 
 export interface TranslationApiLanguagesRequest {
     oCSAPIRequest: boolean;
 }
 
-export interface TranslationApiTranslateRequest {
-    text: string;
-    toLanguage: string;
+export interface TranslationApiTranslateOperationRequest {
     oCSAPIRequest: boolean;
-    fromLanguage?: string;
+    translationApiTranslateRequest: TranslationApiTranslateRequest;
 }
 
 /**
@@ -95,21 +96,7 @@ export class TranslationApiApi extends runtime.BaseAPI {
     /**
      * Translate a text
      */
-    async translationApiTranslateRaw(requestParameters: TranslationApiTranslateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TranslationApiTranslate200Response>> {
-        if (requestParameters['text'] == null) {
-            throw new runtime.RequiredError(
-                'text',
-                'Required parameter "text" was null or undefined when calling translationApiTranslate().'
-            );
-        }
-
-        if (requestParameters['toLanguage'] == null) {
-            throw new runtime.RequiredError(
-                'toLanguage',
-                'Required parameter "toLanguage" was null or undefined when calling translationApiTranslate().'
-            );
-        }
-
+    async translationApiTranslateRaw(requestParameters: TranslationApiTranslateOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TranslationApiTranslate200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
@@ -117,21 +104,18 @@ export class TranslationApiApi extends runtime.BaseAPI {
             );
         }
 
+        if (requestParameters['translationApiTranslateRequest'] == null) {
+            throw new runtime.RequiredError(
+                'translationApiTranslateRequest',
+                'Required parameter "translationApiTranslateRequest" was null or undefined when calling translationApiTranslate().'
+            );
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters['text'] != null) {
-            queryParameters['text'] = requestParameters['text'];
-        }
-
-        if (requestParameters['fromLanguage'] != null) {
-            queryParameters['fromLanguage'] = requestParameters['fromLanguage'];
-        }
-
-        if (requestParameters['toLanguage'] != null) {
-            queryParameters['toLanguage'] = requestParameters['toLanguage'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -153,6 +137,7 @@ export class TranslationApiApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: TranslationApiTranslateRequestToJSON(requestParameters['translationApiTranslateRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => TranslationApiTranslate200ResponseFromJSON(jsonValue));
@@ -161,7 +146,7 @@ export class TranslationApiApi extends runtime.BaseAPI {
     /**
      * Translate a text
      */
-    async translationApiTranslate(requestParameters: TranslationApiTranslateRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TranslationApiTranslate200Response> {
+    async translationApiTranslate(requestParameters: TranslationApiTranslateOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TranslationApiTranslate200Response> {
         const response = await this.translationApiTranslateRaw(requestParameters, initOverrides);
         return await response.value();
     }

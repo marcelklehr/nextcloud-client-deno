@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -16,20 +16,18 @@
 import * as runtime from '../runtime.ts';
 import type {
   AutoCompleteGet200Response,
+  AutoCompleteGetRequest,
 } from '../models/index.ts';
 import {
     AutoCompleteGet200ResponseFromJSON,
     AutoCompleteGet200ResponseToJSON,
+    AutoCompleteGetRequestFromJSON,
+    AutoCompleteGetRequestToJSON,
 } from '../models/index.ts';
 
-export interface AutoCompleteGetRequest {
-    search: string;
+export interface AutoCompleteGetOperationRequest {
     oCSAPIRequest: boolean;
-    itemType?: string;
-    itemId?: string;
-    sorter?: string;
-    shareTypes?: Array<number>;
-    limit?: number;
+    autoCompleteGetRequest: AutoCompleteGetRequest;
 }
 
 /**
@@ -40,14 +38,7 @@ export class AutoCompleteApi extends runtime.BaseAPI {
     /**
      * Autocomplete a query
      */
-    async autoCompleteGetRaw(requestParameters: AutoCompleteGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AutoCompleteGet200Response>> {
-        if (requestParameters['search'] == null) {
-            throw new runtime.RequiredError(
-                'search',
-                'Required parameter "search" was null or undefined when calling autoCompleteGet().'
-            );
-        }
-
+    async autoCompleteGetRaw(requestParameters: AutoCompleteGetOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<AutoCompleteGet200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
@@ -55,33 +46,18 @@ export class AutoCompleteApi extends runtime.BaseAPI {
             );
         }
 
+        if (requestParameters['autoCompleteGetRequest'] == null) {
+            throw new runtime.RequiredError(
+                'autoCompleteGetRequest',
+                'Required parameter "autoCompleteGetRequest" was null or undefined when calling autoCompleteGet().'
+            );
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters['search'] != null) {
-            queryParameters['search'] = requestParameters['search'];
-        }
-
-        if (requestParameters['itemType'] != null) {
-            queryParameters['itemType'] = requestParameters['itemType'];
-        }
-
-        if (requestParameters['itemId'] != null) {
-            queryParameters['itemId'] = requestParameters['itemId'];
-        }
-
-        if (requestParameters['sorter'] != null) {
-            queryParameters['sorter'] = requestParameters['sorter'];
-        }
-
-        if (requestParameters['shareTypes'] != null) {
-            queryParameters['shareTypes[]'] = requestParameters['shareTypes'];
-        }
-
-        if (requestParameters['limit'] != null) {
-            queryParameters['limit'] = requestParameters['limit'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -103,6 +79,7 @@ export class AutoCompleteApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: AutoCompleteGetRequestToJSON(requestParameters['autoCompleteGetRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => AutoCompleteGet200ResponseFromJSON(jsonValue));
@@ -111,7 +88,7 @@ export class AutoCompleteApi extends runtime.BaseAPI {
     /**
      * Autocomplete a query
      */
-    async autoCompleteGet(requestParameters: AutoCompleteGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AutoCompleteGet200Response> {
+    async autoCompleteGet(requestParameters: AutoCompleteGetOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<AutoCompleteGet200Response> {
         const response = await this.autoCompleteGetRaw(requestParameters, initOverrides);
         return await response.value();
     }

@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -15,18 +15,21 @@
 
 import * as runtime from '../runtime.ts';
 import type {
+  ClientFlowLoginV2PollRequest,
   LoginFlowV2,
   LoginFlowV2Credentials,
 } from '../models/index.ts';
 import {
+    ClientFlowLoginV2PollRequestFromJSON,
+    ClientFlowLoginV2PollRequestToJSON,
     LoginFlowV2FromJSON,
     LoginFlowV2ToJSON,
     LoginFlowV2CredentialsFromJSON,
     LoginFlowV2CredentialsToJSON,
 } from '../models/index.ts';
 
-export interface ClientFlowLoginV2PollRequest {
-    token: string;
+export interface ClientFlowLoginV2PollOperationRequest {
+    clientFlowLoginV2PollRequest: ClientFlowLoginV2PollRequest;
 }
 
 /**
@@ -74,21 +77,19 @@ export class ClientFlowLoginV2Api extends runtime.BaseAPI {
     /**
      * Poll the login flow credentials
      */
-    async clientFlowLoginV2PollRaw(requestParameters: ClientFlowLoginV2PollRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LoginFlowV2Credentials>> {
-        if (requestParameters['token'] == null) {
+    async clientFlowLoginV2PollRaw(requestParameters: ClientFlowLoginV2PollOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LoginFlowV2Credentials>> {
+        if (requestParameters['clientFlowLoginV2PollRequest'] == null) {
             throw new runtime.RequiredError(
-                'token',
-                'Required parameter "token" was null or undefined when calling clientFlowLoginV2Poll().'
+                'clientFlowLoginV2PollRequest',
+                'Required parameter "clientFlowLoginV2PollRequest" was null or undefined when calling clientFlowLoginV2Poll().'
             );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters['token'] != null) {
-            queryParameters['token'] = requestParameters['token'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
@@ -106,6 +107,7 @@ export class ClientFlowLoginV2Api extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: ClientFlowLoginV2PollRequestToJSON(requestParameters['clientFlowLoginV2PollRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => LoginFlowV2CredentialsFromJSON(jsonValue));
@@ -114,7 +116,7 @@ export class ClientFlowLoginV2Api extends runtime.BaseAPI {
     /**
      * Poll the login flow credentials
      */
-    async clientFlowLoginV2Poll(requestParameters: ClientFlowLoginV2PollRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LoginFlowV2Credentials> {
+    async clientFlowLoginV2Poll(requestParameters: ClientFlowLoginV2PollOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LoginFlowV2Credentials> {
         const response = await this.clientFlowLoginV2PollRaw(requestParameters, initOverrides);
         return await response.value();
     }

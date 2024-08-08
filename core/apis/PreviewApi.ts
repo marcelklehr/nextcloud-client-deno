@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -14,25 +14,23 @@
 
 
 import * as runtime from '../runtime.ts';
+import type {
+  PreviewGetPreviewByFileIdRequest,
+  PreviewGetPreviewRequest,
+} from '../models/index.ts';
+import {
+    PreviewGetPreviewByFileIdRequestFromJSON,
+    PreviewGetPreviewByFileIdRequestToJSON,
+    PreviewGetPreviewRequestFromJSON,
+    PreviewGetPreviewRequestToJSON,
+} from '../models/index.ts';
 
-export interface PreviewGetPreviewRequest {
-    file?: string;
-    x?: number;
-    y?: number;
-    a?: PreviewGetPreviewAEnum;
-    forceIcon?: PreviewGetPreviewForceIconEnum;
-    mode?: string;
-    mimeFallback?: PreviewGetPreviewMimeFallbackEnum;
+export interface PreviewGetPreviewOperationRequest {
+    previewGetPreviewRequest?: PreviewGetPreviewRequest;
 }
 
-export interface PreviewGetPreviewByFileIdRequest {
-    fileId?: number;
-    x?: number;
-    y?: number;
-    a?: PreviewGetPreviewByFileIdAEnum;
-    forceIcon?: PreviewGetPreviewByFileIdForceIconEnum;
-    mode?: string;
-    mimeFallback?: PreviewGetPreviewByFileIdMimeFallbackEnum;
+export interface PreviewGetPreviewByFileIdOperationRequest {
+    previewGetPreviewByFileIdRequest?: PreviewGetPreviewByFileIdRequest;
 }
 
 /**
@@ -43,38 +41,12 @@ export class PreviewApi extends runtime.BaseAPI {
     /**
      * Get a preview by file path
      */
-    async previewGetPreviewRaw(requestParameters: PreviewGetPreviewRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async previewGetPreviewRaw(requestParameters: PreviewGetPreviewOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
         const queryParameters: any = {};
 
-        if (requestParameters['file'] != null) {
-            queryParameters['file'] = requestParameters['file'];
-        }
-
-        if (requestParameters['x'] != null) {
-            queryParameters['x'] = requestParameters['x'];
-        }
-
-        if (requestParameters['y'] != null) {
-            queryParameters['y'] = requestParameters['y'];
-        }
-
-        if (requestParameters['a'] != null) {
-            queryParameters['a'] = requestParameters['a'];
-        }
-
-        if (requestParameters['forceIcon'] != null) {
-            queryParameters['forceIcon'] = requestParameters['forceIcon'];
-        }
-
-        if (requestParameters['mode'] != null) {
-            queryParameters['mode'] = requestParameters['mode'];
-        }
-
-        if (requestParameters['mimeFallback'] != null) {
-            queryParameters['mimeFallback'] = requestParameters['mimeFallback'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
@@ -92,6 +64,7 @@ export class PreviewApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: PreviewGetPreviewRequestToJSON(requestParameters['previewGetPreviewRequest']),
         }, initOverrides);
 
         return new runtime.BlobApiResponse(response);
@@ -100,7 +73,7 @@ export class PreviewApi extends runtime.BaseAPI {
     /**
      * Get a preview by file path
      */
-    async previewGetPreview(requestParameters: PreviewGetPreviewRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+    async previewGetPreview(requestParameters: PreviewGetPreviewOperationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
         const response = await this.previewGetPreviewRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -108,38 +81,12 @@ export class PreviewApi extends runtime.BaseAPI {
     /**
      * Get a preview by file ID
      */
-    async previewGetPreviewByFileIdRaw(requestParameters: PreviewGetPreviewByFileIdRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async previewGetPreviewByFileIdRaw(requestParameters: PreviewGetPreviewByFileIdOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
         const queryParameters: any = {};
 
-        if (requestParameters['fileId'] != null) {
-            queryParameters['fileId'] = requestParameters['fileId'];
-        }
-
-        if (requestParameters['x'] != null) {
-            queryParameters['x'] = requestParameters['x'];
-        }
-
-        if (requestParameters['y'] != null) {
-            queryParameters['y'] = requestParameters['y'];
-        }
-
-        if (requestParameters['a'] != null) {
-            queryParameters['a'] = requestParameters['a'];
-        }
-
-        if (requestParameters['forceIcon'] != null) {
-            queryParameters['forceIcon'] = requestParameters['forceIcon'];
-        }
-
-        if (requestParameters['mode'] != null) {
-            queryParameters['mode'] = requestParameters['mode'];
-        }
-
-        if (requestParameters['mimeFallback'] != null) {
-            queryParameters['mimeFallback'] = requestParameters['mimeFallback'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
@@ -157,6 +104,7 @@ export class PreviewApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: PreviewGetPreviewByFileIdRequestToJSON(requestParameters['previewGetPreviewByFileIdRequest']),
         }, initOverrides);
 
         return new runtime.BlobApiResponse(response);
@@ -165,58 +113,9 @@ export class PreviewApi extends runtime.BaseAPI {
     /**
      * Get a preview by file ID
      */
-    async previewGetPreviewByFileId(requestParameters: PreviewGetPreviewByFileIdRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+    async previewGetPreviewByFileId(requestParameters: PreviewGetPreviewByFileIdOperationRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
         const response = await this.previewGetPreviewByFileIdRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
 }
-
-/**
- * @export
- */
-export const PreviewGetPreviewAEnum = {
-    NUMBER_0: 0,
-    NUMBER_1: 1
-} as const;
-export type PreviewGetPreviewAEnum = typeof PreviewGetPreviewAEnum[keyof typeof PreviewGetPreviewAEnum];
-/**
- * @export
- */
-export const PreviewGetPreviewForceIconEnum = {
-    NUMBER_0: 0,
-    NUMBER_1: 1
-} as const;
-export type PreviewGetPreviewForceIconEnum = typeof PreviewGetPreviewForceIconEnum[keyof typeof PreviewGetPreviewForceIconEnum];
-/**
- * @export
- */
-export const PreviewGetPreviewMimeFallbackEnum = {
-    NUMBER_0: 0,
-    NUMBER_1: 1
-} as const;
-export type PreviewGetPreviewMimeFallbackEnum = typeof PreviewGetPreviewMimeFallbackEnum[keyof typeof PreviewGetPreviewMimeFallbackEnum];
-/**
- * @export
- */
-export const PreviewGetPreviewByFileIdAEnum = {
-    NUMBER_0: 0,
-    NUMBER_1: 1
-} as const;
-export type PreviewGetPreviewByFileIdAEnum = typeof PreviewGetPreviewByFileIdAEnum[keyof typeof PreviewGetPreviewByFileIdAEnum];
-/**
- * @export
- */
-export const PreviewGetPreviewByFileIdForceIconEnum = {
-    NUMBER_0: 0,
-    NUMBER_1: 1
-} as const;
-export type PreviewGetPreviewByFileIdForceIconEnum = typeof PreviewGetPreviewByFileIdForceIconEnum[keyof typeof PreviewGetPreviewByFileIdForceIconEnum];
-/**
- * @export
- */
-export const PreviewGetPreviewByFileIdMimeFallbackEnum = {
-    NUMBER_0: 0,
-    NUMBER_1: 1
-} as const;
-export type PreviewGetPreviewByFileIdMimeFallbackEnum = typeof PreviewGetPreviewByFileIdMimeFallbackEnum[keyof typeof PreviewGetPreviewByFileIdMimeFallbackEnum];

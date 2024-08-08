@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -19,14 +19,14 @@ import {
     AutocompleteResultStatusOneOfFromJSONTyped,
     AutocompleteResultStatusOneOfToJSON,
 } from './AutocompleteResultStatusOneOf.ts';
-/*import type { string } from './string.ts';*/
-/*import {
-#    instanceOfstring,
-#    stringFromJSON,
-#    stringFromJSONTyped,
-#    stringToJSON,
-#} from './string.ts';
-*/
+/*import type { string } from './string.ts';
+import {
+    instanceOfstring,
+    stringFromJSON,
+    stringFromJSONTyped,
+    stringToJSON,
+} from './string.ts';*/
+
 /**
  * @type AutocompleteResultStatus
  * 

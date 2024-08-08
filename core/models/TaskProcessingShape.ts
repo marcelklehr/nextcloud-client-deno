@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -37,12 +37,6 @@ export interface TaskProcessingShape {
      * @memberof TaskProcessingShape
      */
     type: TaskProcessingShapeTypeEnum;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof TaskProcessingShape
-     */
-    mandatory: boolean;
 }
 
 
@@ -56,6 +50,7 @@ export const TaskProcessingShapeTypeEnum = {
     Image: 'Image',
     Video: 'Video',
     File: 'File',
+    Enum: 'Enum',
     ListOfNumbers: 'ListOfNumbers',
     ListOfTexts: 'ListOfTexts',
     ListOfImages: 'ListOfImages',
@@ -73,7 +68,6 @@ export function instanceOfTaskProcessingShape(value: object): value is TaskProce
     if (!('name' in value) || value['name'] === undefined) return false;
     if (!('description' in value) || value['description'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
-    if (!('mandatory' in value) || value['mandatory'] === undefined) return false;
     return true;
 }
 
@@ -90,7 +84,6 @@ export function TaskProcessingShapeFromJSONTyped(json: any, ignoreDiscriminator:
         'name': json['name'],
         'description': json['description'],
         'type': json['type'],
-        'mandatory': json['mandatory'],
     };
 }
 
@@ -103,7 +96,6 @@ export function TaskProcessingShapeToJSON(value?: TaskProcessingShape | null): a
         'name': value['name'],
         'description': value['description'],
         'type': value['type'],
-        'mandatory': value['mandatory'],
     };
 }
 

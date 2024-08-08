@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -19,12 +19,12 @@ import {
     UnifiedSearchResultEntryFromJSONTyped,
     UnifiedSearchResultEntryToJSON,
 } from './UnifiedSearchResultEntry.ts';
-import type { UnifiedSearchSearchCursorParameter } from './UnifiedSearchSearchCursorParameter.ts';
+import type { UnifiedSearchResultCursor } from './UnifiedSearchResultCursor.ts';
 import {
-    UnifiedSearchSearchCursorParameterFromJSON,
-    UnifiedSearchSearchCursorParameterFromJSONTyped,
-    UnifiedSearchSearchCursorParameterToJSON,
-} from './UnifiedSearchSearchCursorParameter.ts';
+    UnifiedSearchResultCursorFromJSON,
+    UnifiedSearchResultCursorFromJSONTyped,
+    UnifiedSearchResultCursorToJSON,
+} from './UnifiedSearchResultCursor.ts';
 
 /**
  * 
@@ -52,10 +52,10 @@ export interface UnifiedSearchResult {
     entries: Array<UnifiedSearchResultEntry>;
     /**
      * 
-     * @type {UnifiedSearchSearchCursorParameter}
+     * @type {UnifiedSearchResultCursor}
      * @memberof UnifiedSearchResult
      */
-    cursor: UnifiedSearchSearchCursorParameter | null;
+    cursor: UnifiedSearchResultCursor | null;
 }
 
 /**
@@ -82,7 +82,7 @@ export function UnifiedSearchResultFromJSONTyped(json: any, ignoreDiscriminator:
         'name': json['name'],
         'isPaginated': json['isPaginated'],
         'entries': ((json['entries'] as Array<any>).map(UnifiedSearchResultEntryFromJSON)),
-        'cursor': UnifiedSearchSearchCursorParameterFromJSON(json['cursor']),
+        'cursor': UnifiedSearchResultCursorFromJSON(json['cursor']),
     };
 }
 
@@ -95,7 +95,7 @@ export function UnifiedSearchResultToJSON(value?: UnifiedSearchResult | null): a
         'name': value['name'],
         'isPaginated': value['isPaginated'],
         'entries': ((value['entries'] as Array<any>).map(UnifiedSearchResultEntryToJSON)),
-        'cursor': UnifiedSearchSearchCursorParameterToJSON(value['cursor']),
+        'cursor': UnifiedSearchResultCursorToJSON(value['cursor']),
     };
 }
 

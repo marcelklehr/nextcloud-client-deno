@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -13,13 +13,6 @@
  */
 
 import { mapValues } from '../runtime.ts';
-import type { NavigationEntryOrder } from './NavigationEntryOrder.ts';
-import {
-    NavigationEntryOrderFromJSON,
-    NavigationEntryOrderFromJSONTyped,
-    NavigationEntryOrderToJSON,
-} from './NavigationEntryOrder.ts';
-
 /**
  * 
  * @export
@@ -34,10 +27,10 @@ export interface NavigationEntry {
     id: string;
     /**
      * 
-     * @type {NavigationEntryOrder}
+     * @type {number}
      * @memberof NavigationEntry
      */
-    order: NavigationEntryOrder;
+    order?: number;
     /**
      * 
      * @type {string}
@@ -64,6 +57,18 @@ export interface NavigationEntry {
     name: string;
     /**
      * 
+     * @type {string}
+     * @memberof NavigationEntry
+     */
+    app?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof NavigationEntry
+     */
+    _default?: boolean;
+    /**
+     * 
      * @type {boolean}
      * @memberof NavigationEntry
      */
@@ -87,7 +92,6 @@ export interface NavigationEntry {
  */
 export function instanceOfNavigationEntry(value: object): value is NavigationEntry {
     if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('order' in value) || value['order'] === undefined) return false;
     if (!('href' in value) || value['href'] === undefined) return false;
     if (!('icon' in value) || value['icon'] === undefined) return false;
     if (!('type' in value) || value['type'] === undefined) return false;
@@ -109,11 +113,13 @@ export function NavigationEntryFromJSONTyped(json: any, ignoreDiscriminator: boo
     return {
         
         'id': json['id'],
-        'order': NavigationEntryOrderFromJSON(json['order']),
+        'order': json['order'] == null ? undefined : json['order'],
         'href': json['href'],
         'icon': json['icon'],
         'type': json['type'],
         'name': json['name'],
+        'app': json['app'] == null ? undefined : json['app'],
+        '_default': json['default'] == null ? undefined : json['default'],
         'active': json['active'],
         'classes': json['classes'],
         'unread': json['unread'],
@@ -127,11 +133,13 @@ export function NavigationEntryToJSON(value?: NavigationEntry | null): any {
     return {
         
         'id': value['id'],
-        'order': NavigationEntryOrderToJSON(value['order']),
+        'order': value['order'],
         'href': value['href'],
         'icon': value['icon'],
         'type': value['type'],
         'name': value['name'],
+        'app': value['app'],
+        'default': value['_default'],
         'active': value['active'],
         'classes': value['classes'],
         'unread': value['unread'],

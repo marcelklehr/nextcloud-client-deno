@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -34,10 +34,10 @@ export interface Resource {
     richObjectType: string;
     /**
      * 
-     * @type {{ [key: string]: object; }}
+     * @type {{ [key: string]: object | null; }}
      * @memberof Resource
      */
-    richObject: { [key: string]: object; };
+    richObject: { [key: string]: object | null; };
     /**
      * 
      * @type {OpenGraphObject}

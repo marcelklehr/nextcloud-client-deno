@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -14,11 +14,18 @@
 
 
 import * as runtime from '../runtime.ts';
+import type {
+  GuestAvatarGetAvatarRequest,
+} from '../models/index.ts';
+import {
+    GuestAvatarGetAvatarRequestFromJSON,
+    GuestAvatarGetAvatarRequestToJSON,
+} from '../models/index.ts';
 
-export interface GuestAvatarGetAvatarRequest {
+export interface GuestAvatarGetAvatarOperationRequest {
     guestName: string;
     size: string;
-    darkTheme?: GuestAvatarGetAvatarDarkThemeEnum;
+    guestAvatarGetAvatarRequest?: GuestAvatarGetAvatarRequest;
 }
 
 export interface GuestAvatarGetAvatarDarkRequest {
@@ -34,7 +41,7 @@ export class GuestAvatarApi extends runtime.BaseAPI {
     /**
      * Returns a guest avatar image response
      */
-    async guestAvatarGetAvatarRaw(requestParameters: GuestAvatarGetAvatarRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
+    async guestAvatarGetAvatarRaw(requestParameters: GuestAvatarGetAvatarOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Blob>> {
         if (requestParameters['guestName'] == null) {
             throw new runtime.RequiredError(
                 'guestName',
@@ -51,11 +58,9 @@ export class GuestAvatarApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['darkTheme'] != null) {
-            queryParameters['darkTheme'] = requestParameters['darkTheme'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
             headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
@@ -73,6 +78,7 @@ export class GuestAvatarApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: GuestAvatarGetAvatarRequestToJSON(requestParameters['guestAvatarGetAvatarRequest']),
         }, initOverrides);
 
         return new runtime.BlobApiResponse(response);
@@ -81,7 +87,7 @@ export class GuestAvatarApi extends runtime.BaseAPI {
     /**
      * Returns a guest avatar image response
      */
-    async guestAvatarGetAvatar(requestParameters: GuestAvatarGetAvatarRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
+    async guestAvatarGetAvatar(requestParameters: GuestAvatarGetAvatarOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Blob> {
         const response = await this.guestAvatarGetAvatarRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -138,12 +144,3 @@ export class GuestAvatarApi extends runtime.BaseAPI {
     }
 
 }
-
-/**
- * @export
- */
-export const GuestAvatarGetAvatarDarkThemeEnum = {
-    NUMBER_0: 0,
-    NUMBER_1: 1
-} as const;
-export type GuestAvatarGetAvatarDarkThemeEnum = typeof GuestAvatarGetAvatarDarkThemeEnum[keyof typeof GuestAvatarGetAvatarDarkThemeEnum];

@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -16,20 +16,23 @@
 import * as runtime from '../runtime.ts';
 import type {
   NavigationGetAppsNavigation200Response,
+  NavigationGetAppsNavigationRequest,
 } from '../models/index.ts';
 import {
     NavigationGetAppsNavigation200ResponseFromJSON,
     NavigationGetAppsNavigation200ResponseToJSON,
+    NavigationGetAppsNavigationRequestFromJSON,
+    NavigationGetAppsNavigationRequestToJSON,
 } from '../models/index.ts';
 
-export interface NavigationGetAppsNavigationRequest {
+export interface NavigationGetAppsNavigationOperationRequest {
     oCSAPIRequest: boolean;
-    absolute?: NavigationGetAppsNavigationAbsoluteEnum;
+    navigationGetAppsNavigationRequest?: NavigationGetAppsNavigationRequest;
 }
 
 export interface NavigationGetSettingsNavigationRequest {
     oCSAPIRequest: boolean;
-    absolute?: NavigationGetSettingsNavigationAbsoluteEnum;
+    navigationGetAppsNavigationRequest?: NavigationGetAppsNavigationRequest;
 }
 
 /**
@@ -40,7 +43,7 @@ export class NavigationApi extends runtime.BaseAPI {
     /**
      * Get the apps navigation
      */
-    async navigationGetAppsNavigationRaw(requestParameters: NavigationGetAppsNavigationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<NavigationGetAppsNavigation200Response>> {
+    async navigationGetAppsNavigationRaw(requestParameters: NavigationGetAppsNavigationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<NavigationGetAppsNavigation200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
@@ -50,11 +53,9 @@ export class NavigationApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['absolute'] != null) {
-            queryParameters['absolute'] = requestParameters['absolute'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -76,6 +77,7 @@ export class NavigationApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: NavigationGetAppsNavigationRequestToJSON(requestParameters['navigationGetAppsNavigationRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => NavigationGetAppsNavigation200ResponseFromJSON(jsonValue));
@@ -84,7 +86,7 @@ export class NavigationApi extends runtime.BaseAPI {
     /**
      * Get the apps navigation
      */
-    async navigationGetAppsNavigation(requestParameters: NavigationGetAppsNavigationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NavigationGetAppsNavigation200Response> {
+    async navigationGetAppsNavigation(requestParameters: NavigationGetAppsNavigationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<NavigationGetAppsNavigation200Response> {
         const response = await this.navigationGetAppsNavigationRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -102,11 +104,9 @@ export class NavigationApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['absolute'] != null) {
-            queryParameters['absolute'] = requestParameters['absolute'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -128,6 +128,7 @@ export class NavigationApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: NavigationGetAppsNavigationRequestToJSON(requestParameters['navigationGetAppsNavigationRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => NavigationGetAppsNavigation200ResponseFromJSON(jsonValue));
@@ -142,20 +143,3 @@ export class NavigationApi extends runtime.BaseAPI {
     }
 
 }
-
-/**
- * @export
- */
-export const NavigationGetAppsNavigationAbsoluteEnum = {
-    NUMBER_0: 0,
-    NUMBER_1: 1
-} as const;
-export type NavigationGetAppsNavigationAbsoluteEnum = typeof NavigationGetAppsNavigationAbsoluteEnum[keyof typeof NavigationGetAppsNavigationAbsoluteEnum];
-/**
- * @export
- */
-export const NavigationGetSettingsNavigationAbsoluteEnum = {
-    NUMBER_0: 0,
-    NUMBER_1: 1
-} as const;
-export type NavigationGetSettingsNavigationAbsoluteEnum = typeof NavigationGetSettingsNavigationAbsoluteEnum[keyof typeof NavigationGetSettingsNavigationAbsoluteEnum];

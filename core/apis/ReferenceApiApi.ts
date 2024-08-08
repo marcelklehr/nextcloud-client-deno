@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * core
+ * core-full
  * Core functionality of Nextcloud
  *
  * The version of the OpenAPI document: 0.0.1
@@ -16,44 +16,77 @@
 import * as runtime from '../runtime.ts';
 import type {
   ReferenceApiExtract200Response,
+  ReferenceApiExtractPublicRequest,
+  ReferenceApiExtractRequest,
   ReferenceApiGetProvidersInfo200Response,
+  ReferenceApiResolveOnePublicRequest,
+  ReferenceApiResolveOneRequest,
+  ReferenceApiResolvePublicRequest,
+  ReferenceApiResolveRequest,
   ReferenceApiTouchProvider200Response,
+  ReferenceApiTouchProviderRequest,
 } from '../models/index.ts';
 import {
     ReferenceApiExtract200ResponseFromJSON,
     ReferenceApiExtract200ResponseToJSON,
+    ReferenceApiExtractPublicRequestFromJSON,
+    ReferenceApiExtractPublicRequestToJSON,
+    ReferenceApiExtractRequestFromJSON,
+    ReferenceApiExtractRequestToJSON,
     ReferenceApiGetProvidersInfo200ResponseFromJSON,
     ReferenceApiGetProvidersInfo200ResponseToJSON,
+    ReferenceApiResolveOnePublicRequestFromJSON,
+    ReferenceApiResolveOnePublicRequestToJSON,
+    ReferenceApiResolveOneRequestFromJSON,
+    ReferenceApiResolveOneRequestToJSON,
+    ReferenceApiResolvePublicRequestFromJSON,
+    ReferenceApiResolvePublicRequestToJSON,
+    ReferenceApiResolveRequestFromJSON,
+    ReferenceApiResolveRequestToJSON,
     ReferenceApiTouchProvider200ResponseFromJSON,
     ReferenceApiTouchProvider200ResponseToJSON,
+    ReferenceApiTouchProviderRequestFromJSON,
+    ReferenceApiTouchProviderRequestToJSON,
 } from '../models/index.ts';
 
-export interface ReferenceApiExtractRequest {
-    text: string;
+export interface ReferenceApiExtractOperationRequest {
     oCSAPIRequest: boolean;
-    resolve?: ReferenceApiExtractResolveEnum;
-    limit?: number;
+    referenceApiExtractRequest: ReferenceApiExtractRequest;
+}
+
+export interface ReferenceApiExtractPublicOperationRequest {
+    oCSAPIRequest: boolean;
+    referenceApiExtractPublicRequest: ReferenceApiExtractPublicRequest;
 }
 
 export interface ReferenceApiGetProvidersInfoRequest {
     oCSAPIRequest: boolean;
 }
 
-export interface ReferenceApiResolveRequest {
-    references: Array<string>;
+export interface ReferenceApiResolveOperationRequest {
     oCSAPIRequest: boolean;
-    limit?: number;
+    referenceApiResolveRequest: ReferenceApiResolveRequest;
 }
 
-export interface ReferenceApiResolveOneRequest {
-    reference: string;
+export interface ReferenceApiResolveOneOperationRequest {
     oCSAPIRequest: boolean;
+    referenceApiResolveOneRequest: ReferenceApiResolveOneRequest;
 }
 
-export interface ReferenceApiTouchProviderRequest {
+export interface ReferenceApiResolveOnePublicOperationRequest {
+    oCSAPIRequest: boolean;
+    referenceApiResolveOnePublicRequest: ReferenceApiResolveOnePublicRequest;
+}
+
+export interface ReferenceApiResolvePublicOperationRequest {
+    oCSAPIRequest: boolean;
+    referenceApiResolvePublicRequest: ReferenceApiResolvePublicRequest;
+}
+
+export interface ReferenceApiTouchProviderOperationRequest {
     providerId: string;
     oCSAPIRequest: boolean;
-    timestamp?: number;
+    referenceApiTouchProviderRequest?: ReferenceApiTouchProviderRequest;
 }
 
 /**
@@ -64,14 +97,7 @@ export class ReferenceApiApi extends runtime.BaseAPI {
     /**
      * Extract references from a text
      */
-    async referenceApiExtractRaw(requestParameters: ReferenceApiExtractRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceApiExtract200Response>> {
-        if (requestParameters['text'] == null) {
-            throw new runtime.RequiredError(
-                'text',
-                'Required parameter "text" was null or undefined when calling referenceApiExtract().'
-            );
-        }
-
+    async referenceApiExtractRaw(requestParameters: ReferenceApiExtractOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceApiExtract200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
@@ -79,21 +105,18 @@ export class ReferenceApiApi extends runtime.BaseAPI {
             );
         }
 
+        if (requestParameters['referenceApiExtractRequest'] == null) {
+            throw new runtime.RequiredError(
+                'referenceApiExtractRequest',
+                'Required parameter "referenceApiExtractRequest" was null or undefined when calling referenceApiExtract().'
+            );
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters['text'] != null) {
-            queryParameters['text'] = requestParameters['text'];
-        }
-
-        if (requestParameters['resolve'] != null) {
-            queryParameters['resolve'] = requestParameters['resolve'];
-        }
-
-        if (requestParameters['limit'] != null) {
-            queryParameters['limit'] = requestParameters['limit'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -115,6 +138,7 @@ export class ReferenceApiApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: ReferenceApiExtractRequestToJSON(requestParameters['referenceApiExtractRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceApiExtract200ResponseFromJSON(jsonValue));
@@ -123,8 +147,66 @@ export class ReferenceApiApi extends runtime.BaseAPI {
     /**
      * Extract references from a text
      */
-    async referenceApiExtract(requestParameters: ReferenceApiExtractRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceApiExtract200Response> {
+    async referenceApiExtract(requestParameters: ReferenceApiExtractOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceApiExtract200Response> {
         const response = await this.referenceApiExtractRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Extract references from a text
+     */
+    async referenceApiExtractPublicRaw(requestParameters: ReferenceApiExtractPublicOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceApiExtract200Response>> {
+        if (requestParameters['oCSAPIRequest'] == null) {
+            throw new runtime.RequiredError(
+                'oCSAPIRequest',
+                'Required parameter "oCSAPIRequest" was null or undefined when calling referenceApiExtractPublic().'
+            );
+        }
+
+        if (requestParameters['referenceApiExtractPublicRequest'] == null) {
+            throw new runtime.RequiredError(
+                'referenceApiExtractPublicRequest',
+                'Required parameter "referenceApiExtractPublicRequest" was null or undefined when calling referenceApiExtractPublic().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['oCSAPIRequest'] != null) {
+            headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
+        }
+
+        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
+            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
+        }
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer_auth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/ocs/v2.php/references/extractPublic`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ReferenceApiExtractPublicRequestToJSON(requestParameters['referenceApiExtractPublicRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceApiExtract200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Extract references from a text
+     */
+    async referenceApiExtractPublic(requestParameters: ReferenceApiExtractPublicOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceApiExtract200Response> {
+        const response = await this.referenceApiExtractPublicRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -179,14 +261,7 @@ export class ReferenceApiApi extends runtime.BaseAPI {
     /**
      * Resolve multiple references
      */
-    async referenceApiResolveRaw(requestParameters: ReferenceApiResolveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceApiExtract200Response>> {
-        if (requestParameters['references'] == null) {
-            throw new runtime.RequiredError(
-                'references',
-                'Required parameter "references" was null or undefined when calling referenceApiResolve().'
-            );
-        }
-
+    async referenceApiResolveRaw(requestParameters: ReferenceApiResolveOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceApiExtract200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
@@ -194,17 +269,18 @@ export class ReferenceApiApi extends runtime.BaseAPI {
             );
         }
 
+        if (requestParameters['referenceApiResolveRequest'] == null) {
+            throw new runtime.RequiredError(
+                'referenceApiResolveRequest',
+                'Required parameter "referenceApiResolveRequest" was null or undefined when calling referenceApiResolve().'
+            );
+        }
+
         const queryParameters: any = {};
 
-        if (requestParameters['references'] != null) {
-            queryParameters['references[]'] = requestParameters['references'];
-        }
-
-        if (requestParameters['limit'] != null) {
-            queryParameters['limit'] = requestParameters['limit'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -226,6 +302,7 @@ export class ReferenceApiApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
+            body: ReferenceApiResolveRequestToJSON(requestParameters['referenceApiResolveRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceApiExtract200ResponseFromJSON(jsonValue));
@@ -234,7 +311,7 @@ export class ReferenceApiApi extends runtime.BaseAPI {
     /**
      * Resolve multiple references
      */
-    async referenceApiResolve(requestParameters: ReferenceApiResolveRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceApiExtract200Response> {
+    async referenceApiResolve(requestParameters: ReferenceApiResolveOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceApiExtract200Response> {
         const response = await this.referenceApiResolveRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -242,14 +319,7 @@ export class ReferenceApiApi extends runtime.BaseAPI {
     /**
      * Resolve a reference
      */
-    async referenceApiResolveOneRaw(requestParameters: ReferenceApiResolveOneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceApiExtract200Response>> {
-        if (requestParameters['reference'] == null) {
-            throw new runtime.RequiredError(
-                'reference',
-                'Required parameter "reference" was null or undefined when calling referenceApiResolveOne().'
-            );
-        }
-
+    async referenceApiResolveOneRaw(requestParameters: ReferenceApiResolveOneOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceApiExtract200Response>> {
         if (requestParameters['oCSAPIRequest'] == null) {
             throw new runtime.RequiredError(
                 'oCSAPIRequest',
@@ -257,13 +327,18 @@ export class ReferenceApiApi extends runtime.BaseAPI {
             );
         }
 
-        const queryParameters: any = {};
-
-        if (requestParameters['reference'] != null) {
-            queryParameters['reference'] = requestParameters['reference'];
+        if (requestParameters['referenceApiResolveOneRequest'] == null) {
+            throw new runtime.RequiredError(
+                'referenceApiResolveOneRequest',
+                'Required parameter "referenceApiResolveOneRequest" was null or undefined when calling referenceApiResolveOne().'
+            );
         }
 
+        const queryParameters: any = {};
+
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -285,6 +360,7 @@ export class ReferenceApiApi extends runtime.BaseAPI {
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
+            body: ReferenceApiResolveOneRequestToJSON(requestParameters['referenceApiResolveOneRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceApiExtract200ResponseFromJSON(jsonValue));
@@ -293,15 +369,131 @@ export class ReferenceApiApi extends runtime.BaseAPI {
     /**
      * Resolve a reference
      */
-    async referenceApiResolveOne(requestParameters: ReferenceApiResolveOneRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceApiExtract200Response> {
+    async referenceApiResolveOne(requestParameters: ReferenceApiResolveOneOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceApiExtract200Response> {
         const response = await this.referenceApiResolveOneRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Resolve from a public page
+     */
+    async referenceApiResolveOnePublicRaw(requestParameters: ReferenceApiResolveOnePublicOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceApiExtract200Response>> {
+        if (requestParameters['oCSAPIRequest'] == null) {
+            throw new runtime.RequiredError(
+                'oCSAPIRequest',
+                'Required parameter "oCSAPIRequest" was null or undefined when calling referenceApiResolveOnePublic().'
+            );
+        }
+
+        if (requestParameters['referenceApiResolveOnePublicRequest'] == null) {
+            throw new runtime.RequiredError(
+                'referenceApiResolveOnePublicRequest',
+                'Required parameter "referenceApiResolveOnePublicRequest" was null or undefined when calling referenceApiResolveOnePublic().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['oCSAPIRequest'] != null) {
+            headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
+        }
+
+        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
+            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
+        }
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer_auth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/ocs/v2.php/references/resolvePublic`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ReferenceApiResolveOnePublicRequestToJSON(requestParameters['referenceApiResolveOnePublicRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceApiExtract200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Resolve from a public page
+     */
+    async referenceApiResolveOnePublic(requestParameters: ReferenceApiResolveOnePublicOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceApiExtract200Response> {
+        const response = await this.referenceApiResolveOnePublicRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Resolve multiple references from a public page
+     */
+    async referenceApiResolvePublicRaw(requestParameters: ReferenceApiResolvePublicOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceApiExtract200Response>> {
+        if (requestParameters['oCSAPIRequest'] == null) {
+            throw new runtime.RequiredError(
+                'oCSAPIRequest',
+                'Required parameter "oCSAPIRequest" was null or undefined when calling referenceApiResolvePublic().'
+            );
+        }
+
+        if (requestParameters['referenceApiResolvePublicRequest'] == null) {
+            throw new runtime.RequiredError(
+                'referenceApiResolvePublicRequest',
+                'Required parameter "referenceApiResolvePublicRequest" was null or undefined when calling referenceApiResolvePublic().'
+            );
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (requestParameters['oCSAPIRequest'] != null) {
+            headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
+        }
+
+        if (this.configuration && (this.configuration.username !== undefined || this.configuration.password !== undefined)) {
+            headerParameters["Authorization"] = "Basic " + btoa(this.configuration.username + ":" + this.configuration.password);
+        }
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("bearer_auth", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/ocs/v2.php/references/resolvePublic`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: ReferenceApiResolvePublicRequestToJSON(requestParameters['referenceApiResolvePublicRequest']),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceApiExtract200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     * Resolve multiple references from a public page
+     */
+    async referenceApiResolvePublic(requestParameters: ReferenceApiResolvePublicOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceApiExtract200Response> {
+        const response = await this.referenceApiResolvePublicRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
     /**
      * Touch a provider
      */
-    async referenceApiTouchProviderRaw(requestParameters: ReferenceApiTouchProviderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceApiTouchProvider200Response>> {
+    async referenceApiTouchProviderRaw(requestParameters: ReferenceApiTouchProviderOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ReferenceApiTouchProvider200Response>> {
         if (requestParameters['providerId'] == null) {
             throw new runtime.RequiredError(
                 'providerId',
@@ -318,11 +510,9 @@ export class ReferenceApiApi extends runtime.BaseAPI {
 
         const queryParameters: any = {};
 
-        if (requestParameters['timestamp'] != null) {
-            queryParameters['timestamp'] = requestParameters['timestamp'];
-        }
-
         const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
 
         if (requestParameters['oCSAPIRequest'] != null) {
             headerParameters['OCS-APIRequest'] = String(requestParameters['oCSAPIRequest']);
@@ -344,6 +534,7 @@ export class ReferenceApiApi extends runtime.BaseAPI {
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
+            body: ReferenceApiTouchProviderRequestToJSON(requestParameters['referenceApiTouchProviderRequest']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => ReferenceApiTouchProvider200ResponseFromJSON(jsonValue));
@@ -352,18 +543,9 @@ export class ReferenceApiApi extends runtime.BaseAPI {
     /**
      * Touch a provider
      */
-    async referenceApiTouchProvider(requestParameters: ReferenceApiTouchProviderRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceApiTouchProvider200Response> {
+    async referenceApiTouchProvider(requestParameters: ReferenceApiTouchProviderOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ReferenceApiTouchProvider200Response> {
         const response = await this.referenceApiTouchProviderRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
 }
-
-/**
- * @export
- */
-export const ReferenceApiExtractResolveEnum = {
-    NUMBER_0: 0,
-    NUMBER_1: 1
-} as const;
-export type ReferenceApiExtractResolveEnum = typeof ReferenceApiExtractResolveEnum[keyof typeof ReferenceApiExtractResolveEnum];
